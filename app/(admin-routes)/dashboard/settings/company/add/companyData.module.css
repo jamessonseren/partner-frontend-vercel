@@ -1,0 +1,188 @@
+.formBox {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+
+
+.form {
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.form>.containerData {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.top > a {
+    cursor: pointer;
+    background-color: var(--bg);
+    padding: 1rem;
+    margin-right: 1rem;
+}
+
+.containerData h3 {
+    text-align: center;
+    margin: 1rem;
+    font-size: 1.3rem;
+    text-shadow: 1px 0 3px var(--black);
+    letter-spacing: 1px;
+}
+
+.containerInfoOverall {
+    width: 100%;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2rem;
+    grid-auto-flow: row;
+}
+
+.inputGroup {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2px;
+
+}
+
+
+/* @supports (mix-blend-mode: darken) {
+    label {
+        position: absolute;
+        bottom: 1.5em;
+        background: #000;
+    }
+} */
+
+.inputGroup>label {
+    padding: 0 0.5em;
+    margin-bottom: 1em;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    letter-spacing: 0.1em;
+    color: #ccd;
+    cursor: pointer;
+}
+
+.inputGroup>input,
+.inputGroup>select {
+    color: var(--white);
+    padding: 1.5rem 1rem;
+    border: 0;
+    background-color: var(--bg);
+    color: var(--text);
+    width: 100%;
+    font-size: 1rem;
+    outline: none;
+    
+}
+
+.inputGroup>input ::placeholder {
+    color: #ccd;
+}
+
+.containerInfoOverall .box1 {
+    grid-column: 1;
+}
+
+.containerInfoOverall .box2 {
+    grid-column: span 2;
+}
+
+.containerInfoOverall .box3 {
+    grid-column: span 2;
+}
+
+.containerInfoOverall .box4 {
+    grid-column: 3;
+
+
+}
+
+.containerInfoOverall .box5 {
+    grid-column: 1;
+}
+
+.containerInfoOverall .box6 {
+    grid-column: 3;
+}
+
+.containerAddress {
+    width: 100%;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 2rem;
+    grid-auto-flow: row;
+}
+
+.containerAddress .box1 {
+    grid-column: 1;
+}
+
+.containerAddress .box2 {
+    grid-column: span 2;
+}
+
+.containerAddress .box3 {
+    grid-column: 4;
+}
+
+.containerAddress .box4 {
+    grid-column: span 2;
+}
+
+.containerAddress .box5 {
+    grid-column: 2 span;
+}
+
+.containerAddress .box6 {
+    grid-column: span 2;
+}
+
+.containerAddress .box7 {
+    grid-column: 3;
+}
+
+.containerAddress .box8 {
+    grid-column: 4;
+}
+
+.buttons {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: .8rem;
+    align-items: center;
+}
+
+.buttons>button {
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 200px;
+    background-color: teal;
+    color: var(--text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.errorMessage{
+    color: rgb(253, 139, 139);
+    font-size: .8rem;
+}

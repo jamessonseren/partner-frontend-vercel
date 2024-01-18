@@ -1,0 +1,94 @@
+.container {
+  display: flex;
+  gap: 80px;
+  margin-top: 2rem;
+  position: relative;
+  padding-top: 1rem;
+  
+}
+
+
+.infoContainer {
+  flex: 1;
+  background-color: var(--bgSoft);
+  padding: 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  color: var(--textSoft);
+  height: max-content;
+}
+
+.imgContainer{
+  width: 100%;
+  height: 300px;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.formContainer {
+  flex: 3;
+  background-color: var(--bgSoft);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form input, .form textarea, .form select{
+  padding: 20px;
+  border: 2px solid #2e374a;
+  border-radius: 5px;
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 10px 0px;
+}
+
+.form label{
+  font-size: 12px;
+}
+
+.form > textarea {
+  resize: vertical;
+}
+.toggles{
+  display: flex;
+  gap: 2rem;
+}
+
+
+.switchBox{
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.switchBox > label {
+  font-size: 1.2rem;
+}
+
+.form button{
+  width: 100%;
+  padding: 20px;
+  background-color: teal;
+  color: var(--text);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.permissionsDetails{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.permissionsDetails > h1 {
+  text-align: center;
+}
+

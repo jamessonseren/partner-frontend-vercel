@@ -1,0 +1,18 @@
+div.container{
+    width: 100%;
+    padding: 1rem;
+}
+div.container > a{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    top: -1rem;
+  }
+  
+  .container > a > label {
+    cursor: pointer;
+  }
+  
+  .container > a:hover{
+    text-decoration: underline;
+  }
