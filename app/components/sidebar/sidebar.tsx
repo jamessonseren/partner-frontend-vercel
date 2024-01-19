@@ -87,7 +87,7 @@ const SideBar = async () => {
 
     const session = await getServerSession(nextAuthOptions)
 
-    
+    console.log("side bar session: ", session)
     return (
         <div className={styles.container}>
             <div className={styles.user}>

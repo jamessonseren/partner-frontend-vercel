@@ -31,6 +31,7 @@ export default function Home() {
 
     if (result?.error) {
       console.log({result})
+      router.replace('/')
       return
     }
 

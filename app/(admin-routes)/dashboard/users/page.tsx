@@ -9,7 +9,6 @@ import { NextPageContext } from "next";
 import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "@/app/api/auth/[...nextauth]/route";
 import { fetchCompanySecondaryUsers, fetchCompanySingleUser } from "@/app/lib/actions";
-import { useEffect } from "react";
 import Pagination from "@/app/components/pagination/pagination";
 // import { useContext } from "react";
 // import { AuthContext } from "@/app/contexts/authContext";
@@ -29,15 +28,19 @@ export type CompanyUser = {
   // outros campos, se aplicável
 };
 
+type ResultProps = {
+  count: number | undefined
+  users: CompanyUser[] | undefined
+  error: string | undefined
+}
 const UsersPage = async ({ searchParams }: any) => {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
 
   const session  = await getServerSession(nextAuthOptions)
-  console.log({session})
   
   const {users, count} = await fetchCompanySingleUser(q, page, session!.user.user_code);
-
+  
   return (
 <div className={styles.container}>
       <div className={styles.top}>
@@ -58,7 +61,7 @@ const UsersPage = async ({ searchParams }: any) => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user: CompanyUser) => (
+          {users?.map((user: CompanyUser) => (
             <tr key={user.id}>
               <td>
                 <div className={styles.user}>
@@ -86,7 +89,7 @@ const UsersPage = async ({ searchParams }: any) => {
                   <form>
                     <input type="hidden" name="id" value={(user.id)} />
                     <button className={`${styles.button} ${styles.delete}`}>
-                      Delete
+                      Deletar
                     </button>
                   </form>
                 </div>

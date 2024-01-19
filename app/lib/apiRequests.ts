@@ -10,7 +10,6 @@ export async function fetchCompanyData() {
     const response = await api.get(`/company-data`)
 
     const result = response.data
-    console.log({ result })
     if (result) return "Empty"
     return null
   } catch (err: any) {
