@@ -1,17 +1,22 @@
-
-
 import axios, { AxiosError } from "axios";
-import { parseCookies } from "nookies";
+
 import { AuthTokenError } from "./errors/AuthTokenError";
 import { getSession, signOut, useSession } from "next-auth/react";
 import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "../api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
+import { cookies } from 'next/headers'
 
 // import { signOut } from "../contexts/authContext";
 
 export async function setupAPIClient(ctx = {}) {
+   const cookieStore = cookies()
+   const session = await getServerSession(nextAuthOptions)
+   console.log("session: ", session?.user.token)
+   
 
-    const session = await getServerSession(nextAuthOptions)
+   let cookie = cookieStore.get('next-auth.session-token')?.value
+     
 
     const api = axios.create({
         baseURL: 'http://localhost:3333',
@@ -21,13 +26,25 @@ export async function setupAPIClient(ctx = {}) {
         }
     })
     api.interceptors.response.use(response => {
+
+        // console.log("response interceptor: ", response)
         return response
-    }, (error: AxiosError) => {
+    }, async (error: AxiosError) => {
         if (error.response?.status === 401) {
-            if (typeof window !== undefined) {
+            if (!cookieStore.has('next-auth.session-token')) {
                 console.log("*****************Caiu aqui********************")
-                signOut()
+                await signOut({
+                    redirect: false
+                })
+        
+                redirect('/')
             } else {
+                console.log('caiu aqui 2')
+                await signOut({
+                    redirect: false
+                })
+        
+                redirect('/')
                 return Promise.reject(new AuthTokenError)
             }
         }

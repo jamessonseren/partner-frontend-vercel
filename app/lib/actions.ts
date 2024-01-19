@@ -80,8 +80,9 @@ export const fetchCompanySecondaryUsers = async (page: any, user_code: string) =
 };
 
 export const fetchCompanySingleUser = async (q: string, page: any, user_code: string) => {
+  const result: { count?: number; users?: CompanyUser[]; error?: string } = {};
   const regex = new RegExp(q, "i");
-  const ITEM_PER_PAGE = 2;
+  const ITEM_PER_PAGE = 5;
   const api = await setupAPIClient();
 
   try {
@@ -90,8 +91,8 @@ export const fetchCompanySingleUser = async (q: string, page: any, user_code: st
       .filter((user: CompanyUser) => regex.test(user.user_name))
       .slice(ITEM_PER_PAGE * (page - 1), ITEM_PER_PAGE * page);
 
-      console.log({users})
-    return { count: users.length, users };
+  
+      return { count: users.length, users}
   } catch (err: any) {
     
     console.log({ err });
