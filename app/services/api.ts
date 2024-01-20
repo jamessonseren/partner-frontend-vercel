@@ -44,7 +44,6 @@ export async function setupAPIClient(ctx = {}) {
                     redirect: false
                 })
         
-                redirect('/')
                 return Promise.reject(new AuthTokenError)
             }
         }
