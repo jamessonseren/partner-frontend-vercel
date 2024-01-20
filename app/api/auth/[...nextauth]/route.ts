@@ -3,10 +3,6 @@ import { setupAPIClient } from "@/app/services/api"
 import { NextAuthOptions } from "next-auth"
 import NextAuth from "next-auth/next"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { signOut } from "next-auth/react"
-import { useRouter } from "next/navigation"
-
-
 
 export interface DecodedToken {
     sub: string
