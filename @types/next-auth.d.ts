@@ -4,9 +4,9 @@ declare module 'next-auth' {
     interface Session {
         user:{
             id: string
-            roles: boolean
+            isAdmin: boolean
             user_name: string
-            cnpj: string
+            company_document: string
             isClient: boolean
             permissions: string
             user_code: string

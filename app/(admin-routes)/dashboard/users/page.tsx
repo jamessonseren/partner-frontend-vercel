@@ -5,11 +5,9 @@ import styles from './users.module.css'
 import Image from "next/image";
 import Link from "next/link";
 
-import { NextPageContext } from "next";
-import { getServerSession } from "next-auth";
-import { nextAuthOptions } from "@/app/api/auth/[...nextauth]/route";
 import { fetchCompanySecondaryUsers, fetchCompanySingleUser } from "@/app/lib/actions";
 import Pagination from "@/app/components/pagination/pagination";
+import { auth } from "@/app/lib/auth";
 // import { useContext } from "react";
 // import { AuthContext } from "@/app/contexts/authContext";
 export type CompanyUser = {
@@ -37,7 +35,7 @@ const UsersPage = async ({ searchParams }: any) => {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
 
-  const session  = await getServerSession(nextAuthOptions)
+  const session  = await auth()
   
   const {users, count} = await fetchCompanySingleUser(q, page, session!.user.user_code);
   

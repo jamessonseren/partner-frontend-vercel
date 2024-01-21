@@ -2,21 +2,18 @@ import axios, { AxiosError } from "axios";
 
 import { AuthTokenError } from "./errors/AuthTokenError";
 import { getSession, signOut, useSession } from "next-auth/react";
-import { getServerSession } from "next-auth";
-import { nextAuthOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { cookies } from 'next/headers'
+import { auth } from "../lib/auth";
 
 // import { signOut } from "../contexts/authContext";
 
 export async function setupAPIClient(ctx = {}) {
    const cookieStore = cookies()
-   const session = await getServerSession(nextAuthOptions)
-   console.log("session: ", session?.user.token)
    
 
    let cookie = cookieStore.get('next-auth.session-token')?.value
-     
+    const session = await auth()
 
     const api = axios.create({
         baseURL: 'http://localhost:3333',
