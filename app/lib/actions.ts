@@ -1,11 +1,10 @@
 "use server"
 
-import { Form } from "react-hook-form"
 import { CompanyUser } from "../(admin-routes)/dashboard/users/page"
 import { dataSchemaZod } from "../components/companyDataForm/validationDataSchema"
 import { setupAPIClient } from "../services/api"
-
-
+import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 
 
 export async function fetchCompanyData() {
@@ -24,7 +23,7 @@ export async function fetchCompanyData() {
 
 
 export const addCompanyData = async (formData: FormData) => {
-  
+
   const {
     document,
     corporate_name,
@@ -65,7 +64,7 @@ export const addCompanyData = async (formData: FormData) => {
   //chamar api para salvar os dados da empresa
 }
 export const fetchCompanySecondaryUsers = async (page: any, user_code: string) => {
-  
+
   const ITEM_PER_PAGE = 3;
   const api = await setupAPIClient();
 
@@ -79,7 +78,7 @@ export const fetchCompanySecondaryUsers = async (page: any, user_code: string) =
   }
 };
 
-export const fetchCompanySingleUser = async (q: string, page: any, user_code: string) => {
+export const fetchCompanyUsers = async (q: string, page: any, user_code: string) => {
   const result: { count?: number; users?: CompanyUser[]; error?: string } = {};
   const regex = new RegExp(q, "i");
   const ITEM_PER_PAGE = 5;
@@ -91,15 +90,33 @@ export const fetchCompanySingleUser = async (q: string, page: any, user_code: st
       .filter((user: CompanyUser) => regex.test(user.user_name))
       .slice(ITEM_PER_PAGE * (page - 1), ITEM_PER_PAGE * page);
 
-  
-      return { count: users.length, users}
+
+    return { count: users.length, users }
   } catch (err: any) {
-    
+
     console.log({ err });
     throw new Error("Failed to fetch company secondary users!");
   }
 };
 
 export const addUser = async (formData: FormData) => {
+  const api = await setupAPIClient();
 
+  const { user_name, password, permissions } = Object.fromEntries(formData)
+  const parsedPermissions = typeof permissions === 'string' ? JSON.parse(permissions) : [];
+  try {
+    await api.post("/company-user", {
+
+      password,
+      user_name,
+      permissions: parsedPermissions
+    })
+
+
+
+  } catch (err: any) {
+    console.log("Erro ao criar usuário", err)
+  }
+  revalidatePath('/dashboard/users')
+  redirect('/dashboard/users')
 }

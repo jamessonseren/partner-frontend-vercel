@@ -86,8 +86,6 @@ const SideBar = async () => {
 
     const session = await auth()
 
-    console.log("side bar session: ", session)
-    console.log("")
     return (
         <div className={styles.container}>
             <div className={styles.user}>

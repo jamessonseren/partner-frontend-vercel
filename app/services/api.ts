@@ -1,10 +1,10 @@
+'use server'
 import axios, { AxiosError } from "axios";
 
 import { AuthTokenError } from "./errors/AuthTokenError";
-import { getSession, signOut, useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
 import { cookies } from 'next/headers'
 import { auth } from "../lib/auth";
+// import { auth } from "../lib/auth";
 
 // import { signOut } from "../contexts/authContext";
 
@@ -30,16 +30,10 @@ export async function setupAPIClient(ctx = {}) {
         if (error.response?.status === 401) {
             if (!cookieStore.has('next-auth.session-token')) {
                 console.log("*****************Caiu aqui********************")
-                await signOut({
-                    redirect: false
-                })
-        
-                redirect('/')
+                
             } else {
                 console.log('caiu aqui 2')
-                await signOut({
-                    redirect: false
-                })
+                
         
                 return Promise.reject(new AuthTokenError)
             }
