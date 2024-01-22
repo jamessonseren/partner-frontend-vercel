@@ -1,4 +1,4 @@
-import styles from '../add/singleUser.module.css'
+import styles from '../../../../components/addUser/singleUser.module.css'
 import Image from 'next/image';
 
 const SingleUserPage = async ( params: string) => {

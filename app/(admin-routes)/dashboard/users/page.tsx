@@ -5,28 +5,25 @@ import styles from './users.module.css'
 import Image from "next/image";
 import Link from "next/link";
 
-import { NextPageContext } from "next";
-import { getServerSession } from "next-auth";
-import { nextAuthOptions } from "@/app/api/auth/[...nextauth]/route";
-import { fetchCompanySecondaryUsers, fetchCompanySingleUser } from "@/app/lib/actions";
+import { fetchCompanyUsers } from "@/app/lib/actions";
 import Pagination from "@/app/components/pagination/pagination";
+import { auth } from "@/app/lib/auth";
 // import { useContext } from "react";
 // import { AuthContext } from "@/app/contexts/authContext";
 export type CompanyUser = {
-  img: string
-  id: string;
-  fullName: string | null;
-  user_name: string;
-  roles: string[]; // ou o tipo específico para roles, dependendo do que contém
-  permissions: string[]; // ou o tipo específico para permissions, dependendo do que contém
-  user_code: string;
-  client_admin: boolean;
-  email: string | null;
-  cnpj: string;
-  cpf: string | null;
-  function: string | null;
-  // outros campos, se aplicável
-};
+  id: string
+  img: string | null
+  isAdmin: boolean
+  user_name: string
+  company_document: string
+  document: string | null
+  isClient: boolean
+  permissions: string[]
+  user_code: string
+  email: string | null
+  function: string | null
+  token: string
+}
 
 type ResultProps = {
   count: number | undefined
@@ -37,12 +34,14 @@ const UsersPage = async ({ searchParams }: any) => {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
 
-  const session  = await getServerSession(nextAuthOptions)
-  
-  const {users, count} = await fetchCompanySingleUser(q, page, session!.user.user_code);
-  
+  const session = await auth()
+
+  const { users, count } = await fetchCompanyUsers(q, page, session!.user.user_code);
+
+ 
+
   return (
-<div className={styles.container}>
+    <div className={styles.container}>
       <div className={styles.top}>
         <Search placeholder="Buscar por usuário..." />
         <Link href="/dashboard/users/add">
@@ -99,7 +98,7 @@ const UsersPage = async ({ searchParams }: any) => {
         </tbody>
       </table>
       <Pagination count={count} />
-    </div>  );
+    </div>);
 };
 
 export default UsersPage;

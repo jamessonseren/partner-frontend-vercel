@@ -1,6 +1,4 @@
 
-import { getServerSession } from 'next-auth';
-import { nextAuthOptions } from '@/app/api/auth/[...nextauth]/route';
 import MenuLink from './menuLink/menuLink';
 import styles from './sidebar.module.css'
 import Image from 'next/image';
@@ -19,6 +17,7 @@ import {
     MdLogout,
 } from "react-icons/md";
 import LogOutButton from './logOutButton/logOutButton';
+import { auth } from '@/app/lib/auth';
 
 const menuItems = [
     {
@@ -85,16 +84,15 @@ const menuItems = [
 
 const SideBar = async () => {
 
-    const session = await getServerSession(nextAuthOptions)
+    const session = await auth()
 
-    console.log("side bar session: ", session)
     return (
         <div className={styles.container}>
             <div className={styles.user}>
                 <Image className={styles.userImage} src="/noavatar.png" alt='' width="50" height="50" />
                 <div className={styles.userDetails}>
                     <span className={styles.userName}>{session?.user.user_name}</span>
-                    <span className={styles.userTitle}>{session?.user.roles ? "Admin" : ""}</span>
+                    <span className={styles.userTitle}>{session?.user.isAdmin ? "Admin" : ""}</span>
                 </div>
             </div>
             <ul className={styles.list}>
