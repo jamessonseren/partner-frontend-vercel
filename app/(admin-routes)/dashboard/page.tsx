@@ -3,9 +3,6 @@ import Card from '../../components/card/card'
 import Transactions from '../../components/transactions/transactions'
 import Chart from '../../components/transactions/charts/charts'
 import Rightbar from '../../components/rightbar/rightbar'
-import { getServerSession } from 'next-auth'
-import { nextAuthOptions } from '@/app/api/auth/[...nextauth]/route'
-
 export default async function Dashboard() {
 
     return (

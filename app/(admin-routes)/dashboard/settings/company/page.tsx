@@ -1,12 +1,9 @@
-import { nextAuthOptions } from '@/app/api/auth/[...nextauth]/route'
 import styles from './company.module.css'
 import { addCompanyData, fetchCompanyData } from '@/app/lib/actions'
-import { getServerSession } from 'next-auth'
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 import { setupAPIClient } from '@/app/services/api'
 import CompanyDataForm from './add/page'
 import Link from 'next/link'
-import { CompanyDataProps } from './add/page'
 
 export default async function Company() {
 

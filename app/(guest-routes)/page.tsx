@@ -14,15 +14,14 @@ export default function Home() {
    async function login(formData: FormData) {
 
 
-    const { company_document, user_name, password } = Object.fromEntries(formData)
-
-    if (!company_document || !user_name || !password) {
+    const { business_document, user_name, password } = Object.fromEntries(formData)
+    if (!business_document || !user_name || !password) {
       alert("preencha tudo")
       return
     }
 
     const result = await signIn('credentials', {
-      company_document,
+      business_document,
       user_name,
       password,
       redirect: false
@@ -48,11 +47,11 @@ export default function Home() {
 
           <form action={login}>
             <h1>Login</h1>
-            <label htmlFor="cnpj">cnpj</label>
+            <label htmlFor="document">cnpj</label>
             <input
               placeholder="Digite o CNPJ ou CPF"
               type="text"
-              name="company_document"
+              name="business_document"
             />
 
             <label htmlFor="user_name">user_name</label>
