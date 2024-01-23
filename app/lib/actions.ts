@@ -63,29 +63,27 @@ export const addCompanyData = async (formData: FormData) => {
 
   //chamar api para salvar os dados da empresa
 }
-export const fetchCompanySecondaryUsers = async (page: any, user_code: string) => {
+export const fetchSingleUser = async (user_uuid: string) => {
 
-  const ITEM_PER_PAGE = 3;
   const api = await setupAPIClient();
 
   try {
-    const response = await api.get(`/company-users?user_code=${user_code}`);
-    const users = response.data.slice(ITEM_PER_PAGE * (page - 1), ITEM_PER_PAGE * page);
-    return { count: response.data.length, users };
+    const response = await api.get(`/company-user?user_uuid=${user_uuid}`);
+
+    return response.data
   } catch (err: any) {
     console.log({ err });
-    throw new Error("Failed to fetch company secondary users!");
   }
 };
 
-export const fetchCompanyUsers = async (q: string, page: any, user_code: string) => {
+export const fetchCompanyUsers = async (q: string, page: any, business_document: string) => {
   const result: { count?: number; users?: CompanyUser[]; error?: string } = {};
   const regex = new RegExp(q, "i");
   const ITEM_PER_PAGE = 5;
   const api = await setupAPIClient();
 
   try {
-    const response = await api.get(`/company-users?user_code=${user_code}`);
+    const response = await api.get(`/company-users?business_document=${business_document}`);
     const users = response.data
       .filter((user: CompanyUser) => regex.test(user.user_name))
       .slice(ITEM_PER_PAGE * (page - 1), ITEM_PER_PAGE * page);
@@ -119,4 +117,41 @@ export const addUser = async (formData: FormData) => {
   }
   revalidatePath('/dashboard/users')
   redirect('/dashboard/users')
+}
+
+export const editUser = async (formData: FormData) => {
+  const api = await setupAPIClient()
+
+  const { user_id, password, permissions, is_active } = Object.fromEntries(formData)
+  const parsedPermissions = typeof permissions === 'string' ? JSON.parse(permissions) : [];
+  const active = is_active === "Ativo" ? true : false
+
+  try {
+    await api.put(`/company-user?user_id=${user_id}`, {
+      password,
+      permissions: parsedPermissions,
+      is_active: active
+    })
+
+  } catch (err: any) {
+    console.log("Erro ao editar usuário: ", err)
+  }
+  revalidatePath('/dashboard/users')
+  redirect('/dashboard/users')
+
+}
+
+export const deleteUser = async (formData: FormData) => {
+  const api = await setupAPIClient()
+
+  const { id, business_document } = Object.fromEntries(formData)
+  try {
+    await api.delete(`/company-user?user_id=${id}&business_document=${business_document}`)
+
+  } catch (err: any) {
+    console.log("Erro ao deletar usuário: ", err)
+    
+
+  }
+  revalidatePath('/dashboard/users')
 }

@@ -17,7 +17,7 @@ export const {
         Credentials({
             name: 'credentials',
             credentials: {
-                company_document: { label: 'cnpj', type: 'text' },
+                business_document: { label: 'cnpj', type: 'text' },
                 user_name: { label: 'user_name', type: 'text' },
                 password: { label: 'password', type: 'password' }
             },
@@ -27,7 +27,7 @@ export const {
                 try {
 
                     const response = await api.post("/company-user-login", {
-                        company_document: credentials?.company_document,
+                        business_document: credentials?.business_document,
                         user_name: credentials?.user_name,
                         password: credentials?.password
                     })

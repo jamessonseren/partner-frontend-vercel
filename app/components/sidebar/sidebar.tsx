@@ -92,7 +92,7 @@ const SideBar = async () => {
                 <Image className={styles.userImage} src="/noavatar.png" alt='' width="50" height="50" />
                 <div className={styles.userDetails}>
                     <span className={styles.userName}>{session?.user.user_name}</span>
-                    <span className={styles.userTitle}>{session?.user.isAdmin ? "Admin" : ""}</span>
+                    <span className={styles.userTitle}>{session?.user.is_admin ? "Admin" : ""}</span>
                 </div>
             </div>
             <ul className={styles.list}>

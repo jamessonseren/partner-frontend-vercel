@@ -5,39 +5,34 @@ import styles from './users.module.css'
 import Image from "next/image";
 import Link from "next/link";
 
-import { fetchCompanyUsers } from "@/app/lib/actions";
+import { deleteUser, fetchCompanyUsers } from "@/app/lib/actions";
 import Pagination from "@/app/components/pagination/pagination";
 import { auth } from "@/app/lib/auth";
 // import { useContext } from "react";
 // import { AuthContext } from "@/app/contexts/authContext";
 export type CompanyUser = {
-  id: string
+  uuid: string
   img: string | null
-  isAdmin: boolean
+  is_admin: boolean
   user_name: string
-  company_document: string
+  business_document: string
+  is_active: boolean
   document: string | null
-  isClient: boolean
+  is_client: boolean
   permissions: string[]
-  user_code: string
   email: string | null
   function: string | null
   token: string
 }
 
-type ResultProps = {
-  count: number | undefined
-  users: CompanyUser[] | undefined
-  error: string | undefined
-}
+
 const UsersPage = async ({ searchParams }: any) => {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
 
   const session = await auth()
 
-  const { users, count } = await fetchCompanyUsers(q, page, session!.user.user_code);
-
+  const { users, count } = await fetchCompanyUsers(q, page, session!.user.business_document);
  
 
   return (
@@ -53,40 +48,47 @@ const UsersPage = async ({ searchParams }: any) => {
           <tr>
             <td>Nome</td>
             <td>Permissões</td>
-            {/* <td>Criado em</td> */}
-            {/* <td>Role</td>
             <td>Status</td>
-            <td>Action</td> */}
+            <td>Ações</td>
           </tr>
         </thead>
         <tbody>
           {users?.map((user: CompanyUser) => (
-            <tr key={user.id}>
+            <tr key={user.uuid}>
               <td>
                 <div className={styles.user}>
-                  <Image
+                  {/* <Image
                     src={user.img || "/noavatar.png"}
                     alt=""
                     width={40}
                     height={40}
                     className={styles.userImage}
-                  />
+                  /> */}
                   {user.user_name}
                 </div>
               </td>
-              <td>{user.permissions}</td>
-              {/* <td>{user.createdAt?.toString().slice(4, 16)}</td> */}
-              {/* <td>{user.isAdmin ? "Admin" : "Client"}</td>
-              <td>{user.isActive ? "active" : "passive"}</td> */}
+              <td>
+              <ul>
+            {user.permissions.map((permission, index) => (
+              <li key={index}>
+                {permission === "sales" && "Vendas"}
+                {permission === "marketing" && "Marketing"}
+                {permission === "finances" && "Finanças"}
+              </li>
+            ))}
+          </ul>
+              </td>
+              <td>{user.is_active ? "Ativo" : "Inativo"}</td>
               <td>
                 <div className={styles.buttons}>
-                  <Link href={`/dashboard/users/${user.id}`}>
+                  <Link href={`/dashboard/users/${user.uuid}`}>
                     <button className={`${styles.button} ${styles.view}`}>
-                      View
+                      Editar
                     </button>
                   </Link>
-                  <form>
-                    <input type="hidden" name="id" value={(user.id)} />
+                  <form action={deleteUser}>
+                    <input type="hidden" name="business_document" value={(session?.user.business_document)} />
+                    <input type="hidden" name="id" value={(user.uuid)} />
                     <button className={`${styles.button} ${styles.delete}`}>
                       Deletar
                     </button>
