@@ -63,13 +63,7 @@ const AddUserForm = () => {
                     </div>
 
                 </div>
-                <textarea
-                    name="notes"
-                    id="notes"
-                    rows={16}
-                    placeholder="Observações"
-
-                ></textarea>
+                
                 <button type="submit" disabled={pending}> {pending ? "Carregando" : "Criar Usuário"} </button>
             </form>
             <div className={styles.permissionsDetails}>

@@ -11,10 +11,7 @@ const SingleUserPage = async ({ params }: any) => {
   const { id } = params
   const user: CompanyUser = await fetchSingleUser(id);
 
-  async function updateUser() {
-    'use server'
-    return
-  }
+  
   return (
     <EditUserForm user={user}/>
   );

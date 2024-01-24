@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { CompanyUser } from '@/app/(admin-routes)/dashboard/users/page';
 
-const EditUserForm = (data: { user: CompanyUser }) => {
+const EditUserForm = (data: { user: CompanyUser }, business_document: string) => {
     const [permissions, setPermissions] = useState<string[]>(data.user?.permissions);
     const { pending } = useFormStatus()
     const handleRoleToggle = (permission: string) => {
@@ -64,13 +64,7 @@ const EditUserForm = (data: { user: CompanyUser }) => {
                         />
                     </div>
                 </div>
-                {/* <textarea
-                    name="notes"
-                    id="notes"
-                    rows={16}
-                    placeholder="Observações"
-
-                ></textarea> */}
+               
                 <button type="submit" disabled={pending}> {pending ? "Carregando" : "Editar Usuário"} </button>
             </form>
             <div className={styles.permissionsDetails}>
