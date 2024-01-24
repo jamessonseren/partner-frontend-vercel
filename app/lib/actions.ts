@@ -5,6 +5,7 @@ import { dataSchemaZod } from "../components/companyDataForm/validationDataSchem
 import { setupAPIClient } from "../services/api"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
+import { auth } from "./auth"
 
 
 export async function fetchCompanyData() {
@@ -121,13 +122,14 @@ export const addUser = async (formData: FormData) => {
 
 export const editUser = async (formData: FormData) => {
   const api = await setupAPIClient()
+  const session = await auth()
 
   const { user_id, password, permissions, is_active } = Object.fromEntries(formData)
   const parsedPermissions = typeof permissions === 'string' ? JSON.parse(permissions) : [];
   const active = is_active === "Ativo" ? true : false
 
   try {
-    await api.put(`/company-user?user_id=${user_id}`, {
+    await api.put(`/company-user?user_id=${user_id}&business_document=${session?.user.business_document}`, {
       password,
       permissions: parsedPermissions,
       is_active: active
@@ -145,6 +147,7 @@ export const deleteUser = async (formData: FormData) => {
   const api = await setupAPIClient()
 
   const { id, business_document } = Object.fromEntries(formData)
+  console.log({business_document})
   try {
     await api.delete(`/company-user?user_id=${id}&business_document=${business_document}`)
 
