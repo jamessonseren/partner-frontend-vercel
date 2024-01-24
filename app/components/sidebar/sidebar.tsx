@@ -32,41 +32,49 @@ const menuItems = [
                 title: "Usuários",
                 path: "/dashboard/users",
                 icon: <MdSupervisedUserCircle />,
-            },
+            }
+        ],
+    },
+    {
+        title: "Finanças",
+        list: [
             {
-                title: "Produtos",
-                path: "/dashboard/products",
-                icon: <MdShoppingBag />,
+                title: "Relatórios",
+                path: "/dashboard/finances/reports",
+                icon: <MdAnalytics />,
             },
             {
                 title: "Transações",
-                path: "/dashboard/transactions",
+                path: "/dashboard/finances/transactions",
                 icon: <MdAttachMoney />,
             },
         ],
     },
+    
     {
-        title: "Analytics",
+        title: "Ecommerce",
         list: [
             {
-                title: "Revenue",
-                path: "/dashboard/revenue",
-                icon: <MdWork />,
-            },
-            {
-                title: "Reports",
-                path: "/dashboard/reports",
+                title: "Relatórios",
+                path: "/dashboard/ecommerce",
                 icon: <MdAnalytics />,
             },
             {
-                title: "Teams",
-                path: "/dashboard/teams",
-                icon: <MdPeople />,
+                title: "Definições",
+                path: "/dashboard/ecommerce/settings",
+                icon: <MdWork />,
             },
+            {
+                title: "Produtos",
+                path: "/dashboard/ecommerce/products",
+                icon: <MdShoppingBag />,
+            },
+            
         ],
     },
+    
     {
-        title: "User",
+        title: "Empresa",
         list: [
             {
                 title: "Configurações",
@@ -74,7 +82,7 @@ const menuItems = [
                 icon: <MdOutlineSettings />,
             },
             {
-                title: "Help",
+                title: "Suporte",
                 path: "/dashboard/help",
                 icon: <MdHelpCenter />,
             },
@@ -100,7 +108,7 @@ const SideBar = async () => {
                     <li key={cat.title}>
                         <span className={styles.cat}>{cat.title}</span>
                         {cat.list.map((item) => (
-                             <MenuLink title={item.title} list={[item]} key={item.title} />
+                            <MenuLink title={item.title} list={[item]} key={item.title} />
                         ))}
                     </li>
                 ))}
