@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./products.module.css"
-import Search from '../../../components/search/search'
+import Search from '../../../../components/search/search'
 import Pagination from "@/app/components/pagination/pagination";
 
 export type ProductsProps = {
@@ -152,7 +152,7 @@ const ProductsPage = async ({ searchParams }: any) => {
     <div className={styles.container}>
       <div className={styles.top}>
         <Search placeholder="Pesquise por um produto..." />
-        <Link href="/dashboard/products/add">
+        <Link href="/dashboard/ecommerce/products/add">
           <button className={styles.addButton}>Adicionar novo</button>
         </Link>
       </div>
@@ -188,7 +188,7 @@ const ProductsPage = async ({ searchParams }: any) => {
               <td>{product.stock}</td>
               <td>
                 <div className={styles.buttons}>
-                  <Link href={`/dashboard/products/${product.id}`}>
+                  <Link href={`/dashboard/ecommerce/products/${product.id}`}>
                     <button className={`${styles.button} ${styles.view}`}>
                       Visualizar
                     </button>
