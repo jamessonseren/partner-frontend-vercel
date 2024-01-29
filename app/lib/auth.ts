@@ -17,8 +17,9 @@ export const {
         Credentials({
             name: 'credentials',
             credentials: {
-                business_document: { label: 'cnpj', type: 'text' },
+                business_document: { label: 'business_document', type: 'text' },
                 user_name: { label: 'user_name', type: 'text' },
+                email: { label: 'email', type: 'text'},
                 password: { label: 'password', type: 'password' }
             },
 
@@ -28,11 +29,11 @@ export const {
 
                     const response = await api.post("/company-user-login", {
                         business_document: credentials?.business_document,
+                        email: credentials.email,
                         user_name: credentials?.user_name,
                         password: credentials?.password
                     })
                     const user = await response.data
-                    console.log({user})
 
                     if (user) {
                         return user
