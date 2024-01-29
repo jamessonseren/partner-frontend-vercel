@@ -1,7 +1,7 @@
 "use client"
 
 import styles from './page.module.css'
-
+import {z} from 'zod';
 
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
@@ -14,14 +14,29 @@ export default function Home() {
    async function login(formData: FormData) {
 
 
-    const { business_document, user_name, password } = Object.fromEntries(formData)
-    if (!business_document || !user_name || !password) {
+    const { business_document, credential, password } = Object.fromEntries(formData)
+    if (!business_document || !credential || !password) {
       alert("preencha tudo")
       return
     }
 
+    let emailValue = credential
+    let user_name = ''
+   
+    
+    const emailValidation = z.string().email().safeParse(credential)
+    console.log("sucess", emailValidation.success)
+    if(emailValidation.success) {
+      emailValue = emailValidation.data
+      
+    }else{
+      user_name = credential as string
+
+    }
+
     const result = await signIn('credentials', {
       business_document,
+      email: emailValue,
       user_name,
       password,
       redirect: false
@@ -47,22 +62,19 @@ export default function Home() {
 
           <form action={login}>
             <h1>Login</h1>
-            <label htmlFor="document">cnpj</label>
+            <label htmlFor="document">CNPJ / CPF</label>
             <input
-              placeholder="Digite o CNPJ ou CPF"
               type="text"
               name="business_document"
             />
 
-            <label htmlFor="user_name">user_name</label>
+            <label htmlFor="user_name">Email ou nome de usuário</label>
             <input
-              placeholder="Digite o nome do usuário"
               type="text"
-              name="user_name"
+              name="credential"
             />
-            <label htmlFor="password">password</label>
+            <label htmlFor="password">Senha</label>
             <input
-              placeholder="Digite a sua senha"
               type="password"
               name="password"
             />
