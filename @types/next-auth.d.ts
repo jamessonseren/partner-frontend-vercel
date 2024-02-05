@@ -9,6 +9,7 @@ declare module 'next-auth' {
             is_client: boolean
             is_admin: boolean
             is_active: boolean
+            business_info_id: string
             business_document: string
             admin_document: string | null
             permissions: string[]
