@@ -1,15 +1,17 @@
 import styles from './company.module.css'
-import { addCompanyData, fetchCompanyData } from '@/app/lib/actions'
-import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
-import { setupAPIClient } from '@/app/services/api'
+import { fetchCompanyAddress, fetchCompanyData } from '@/app/lib/actions'
 import CompanyDataForm from './add/page'
-import Link from 'next/link'
+import { auth } from '@/app/lib/auth'
 
 export default async function Company() {
 
     let availableData = true
 
-    const companyData = await fetchCompanyData()
+    const session = await auth()
+
+    const companyData = await fetchCompanyData(session?.user.business_info_id)
+
+    const companyAddress = await fetchCompanyAddress(companyData?.address_uuid)
     if (companyData === "Company Data not registered") {
         availableData = false
     }
@@ -20,13 +22,24 @@ export default async function Company() {
         <main className={styles.container}>
 
             <CompanyDataForm
+                dataUuid={companyData?.uuid}
+                addressUuid={companyAddress?.uuid}
                 availableData={availableData}
-                corporate_name={companyData.corporate_name}
-                cnpj={companyData.cnpj}
-                classification={companyData.classification}
-                total_employees={companyData.total_employees}
-                phone_1={companyData.phone_1}
-                phone_2={companyData.phone_2}
+                fantasy_name={companyData?.fantasy_name}
+                document={companyData?.document}
+                classification={companyData?.classification}
+                colaborators_number={companyData?.colaborators_number}
+                phone_1={companyData?.phone_1}
+                phone_2={companyData?.phone_2}
+                line1={companyAddress?.line1}
+                line2={companyAddress?.line2}
+                line3={companyAddress?.line3}
+                neighborhood={companyAddress?.neighborhood}
+                postal_code={companyAddress?.postal_code}
+                city={companyAddress?.city}
+                state={companyAddress?.state}
+                country={companyAddress?.country}
+
 
             />
 

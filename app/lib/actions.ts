@@ -6,64 +6,125 @@ import { setupAPIClient } from "../services/api"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { auth } from "./auth"
+import { toast } from "react-toastify"
 
 
-export async function fetchCompanyData() {
+export async function fetchCompanyData(business_info_id: string | undefined) {
   const api = await setupAPIClient()
 
   try {
-    const response = await api.get(`/company-data`)
+    const response = await api.get(`/company-data?business_id=${business_info_id}`)
 
     const result = response.data
     return result
   } catch (err: any) {
     console.log("erro: ", err)
-    return err.response.data.error
+    // return err.response.data.error
   }
 }
 
+export const fetchCompanyAddress = async (address_uuid: string) => {
+  const api = await setupAPIClient()
 
-export const addCompanyData = async (formData: FormData) => {
+  try {
+    const response = await api.get(`/company-address?address_id=${address_uuid}`)
+
+    const result = response.data
+    return result
+  } catch (err: any) {
+    console.log("erro: ", err)
+    // return err.response.data.error
+  }
+
+}
+
+
+export const updateData = async (formData: FormData) => {
+  const api = await setupAPIClient();
 
   const {
-    document,
-    corporate_name,
-    classification,
-    total_employees,
-    phone_1,
-    phone_2,
-    zip_code,
-    street,
-    number,
-    complement,
+    data_uuid,
+    address_uuid,
+    line1,
+    line2,
+    line3,
+    postal_code,
     neighborhood,
     city,
     state,
-    country
+    country,
+    fantasy_name,
+    document,
+    classification,
+    colaborators_number,
+    phone_1,
+    phone_2
+
+
   } = Object.fromEntries(formData)
 
+  // if(!document 
+  //   || !fantasy_name 
+  //   || !classification 
+  //   || !colaborators_number 
+  //   || !phone_1 
+  //   || !postal_code
+  //   || !line1
+  //   || !line2
+  //   || !neighborhood
+  //   || !city
+  //   || !state
+  //   || !country
+  //   ) {console.log("data missing")}
   const result = dataSchemaZod.safeParse({
-    document,
-    corporate_name,
-    classification,
-    total_employees,
-    phone_1,
-    phone_2,
-    zip_code,
-    street,
-    number,
-    complement,
+    line1,
+    line2,
+    line3,
+    postal_code,
     neighborhood,
     city,
     state,
-    country
+    country,
+    fantasy_name,
+    document,
+    classification,
+    colaborators_number,
+    phone_1,
+    phone_2
   })
   if (!result.success) {
     return { error: result.error.issues }
   }
 
+  let colaborators_int = +colaborators_number
+
+
+  try {
+    await api.put(`/company-info?data_uuid=${data_uuid}&address_uuid=${address_uuid}`, {
+      line1,
+      line2,
+      line3,
+      postal_code,
+      neighborhood,
+      city,
+      state,
+      country,
+      fantasy_name,
+      document,
+      classification,
+      colaborators_number: colaborators_int,
+      phone_1,
+      phone_2
+    })
+  } catch (err: any) {
+    console.log("Unable to update data", err)
+    
+  }
   //chamar api para salvar os dados da empresa
+  revalidatePath('/dashboard/settings/company')
 }
+
+
 export const fetchSingleUser = async (user_uuid: string) => {
 
   const api = await setupAPIClient();
@@ -147,13 +208,13 @@ export const deleteUser = async (formData: FormData) => {
   const api = await setupAPIClient()
 
   const { id, business_document } = Object.fromEntries(formData)
-  console.log({business_document})
+  console.log({ business_document })
   try {
     await api.delete(`/company-user?user_id=${id}&business_document=${business_document}`)
 
   } catch (err: any) {
     console.log("Erro ao deletar usuário: ", err)
-    
+
 
   }
   revalidatePath('/dashboard/users')

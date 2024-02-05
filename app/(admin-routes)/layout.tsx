@@ -1,14 +1,17 @@
 import { ReactNode } from "react";
-import { redirect } from "next/navigation";
+import { ToastContainer } from "react-toastify";
 
 interface PrivateLayoutProps {
     children: ReactNode
 }
-export default async function PrivateLayout( {children}: PrivateLayoutProps){
+export default async function PrivateLayout({ children }: PrivateLayoutProps) {
 
     // if(!session){
     //     redirect('/')
     // }
 
-    return <>{children}</>
+    return <>
+        {children}
+        <ToastContainer autoClose={3000}/>
+    </>
 }
