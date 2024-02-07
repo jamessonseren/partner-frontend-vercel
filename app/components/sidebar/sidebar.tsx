@@ -3,7 +3,6 @@ import MenuLink from './menuLink/menuLink';
 import styles from './sidebar.module.css'
 import Image from 'next/image';
 
-
 import {
     MdDashboard,
     MdSupervisedUserCircle,
@@ -91,15 +90,14 @@ const menuItems = [
 const SideBar = async () => {
 
     const session = await auth()
-    console.log("session sidebar", session)
 
     return (
         <div className={styles.container}>
             <div className={styles.user}>
-                <Image className={styles.userImage} src="/noavatar.png" alt='' width="50" height="50" />
+                <Image className={styles.userImage} src="/noavatar.png" alt='avatar' width="50" height="50" />
                 <div className={styles.userDetails}>
                     <span className={styles.userName}>{session?.user.user_name}</span>
-                    <span className={styles.userTitle}>{session?.user.is_admin ? "Admin" : ""}</span>
+                    <span className={styles.userTitle}>{session?.user.is_admin ? "Admin" : "Usuário"}</span>
                 </div>
             </div>
             <ul className={styles.list}>

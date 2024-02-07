@@ -20,18 +20,17 @@ export default function Home() {
       return
     }
 
-    let emailValue = credential
+    let emailValue = ''
     let user_name = ''
    
     
     const emailValidation = z.string().email().safeParse(credential)
-    console.log("sucess", emailValidation.success)
     if(emailValidation.success) {
       emailValue = emailValidation.data
       
     }else{
       user_name = credential as string
-
+      emailValue = ''
     }
 
     const result = await signIn('credentials', {
@@ -44,7 +43,6 @@ export default function Home() {
 
 
     if (result?.error) {
-      console.log({result})
       router.replace('/')
       return
     }
