@@ -2,9 +2,8 @@
 
 import styles from './companyData.module.css'
 
+
 import { IMaskInput } from 'react-imask'
-import { dataSchemaZod } from '@/app/components/companyDataForm/validationDataSchema'
-import { useRouter } from 'next/navigation'
 
 import { classificationOptions } from '@/app/utils/company-options.utils'
 import { stateOptions } from '@/app/utils/company-options.utils'
@@ -13,7 +12,8 @@ import Link from 'next/link'
 import { useState } from 'react'
 import React from 'react'
 
-import { addCompanyData } from '@/app/lib/actions'
+import { updateData } from '@/app/lib/actions'
+import { toast } from 'react-toastify'
 
 
 type FormErrors = {
@@ -22,25 +22,45 @@ type FormErrors = {
 
 
 export type CompanyDataProps = {
+    dataUuid: string
+    addressUuid: string
+    line1: string
+    line2: string
+    line3: string | null
+    postal_code: string
+    neighborhood: string
+    city: string
+    state: string
+    country: string
+    fantasy_name: string;
     availableData: boolean
-    corporate_name: string;
-    cnpj: string;
+    document: string;
     classification: string;
-    total_employees: number;
+    colaborators_number: number;
     phone_1: string;
     phone_2: string | null;
+    
 }
 export default function CompanyDataForm(props: CompanyDataProps) {
     const [editMode, setEditMode] = useState(props.availableData)
 
-    const router = useRouter()
 
     const [errorsMessage, setErrorsMessage] = useState<FormErrors>(null);
 
 
     async function registerData(formData: FormData) {
 
-        const response = await addCompanyData(formData)
+        try{
+            
+        }catch{
+            
+        }
+        const response = await updateData(formData)
+
+        if(response) toast.success("Dados atualizados com sucesso!")
+
+
+        handleEditMode()
 
         type FormErrors = {
             [key: string]: string[] | undefined;
@@ -65,6 +85,8 @@ export default function CompanyDataForm(props: CompanyDataProps) {
 
         }
 
+        
+
 
 
     }
@@ -80,6 +102,9 @@ export default function CompanyDataForm(props: CompanyDataProps) {
     return (
         <div className={styles.formBox}>
             <form action={registerData} className={styles.form}>
+                <input type="hidden" name='data_uuid' value={props.dataUuid} />
+                <input type="hidden" name='address_uuid' value={props.addressUuid} />
+
                 <article className={styles.containerData}>
                     <div className={styles.top}>
                         <h3>Informações Gerais</h3>
@@ -87,17 +112,17 @@ export default function CompanyDataForm(props: CompanyDataProps) {
                     </div>
                     <section className={styles.containerInfoOverall}>
                         <div className={`${styles.inputGroup} ${styles.box1}`}>
-                            <label htmlFor='documento'>CNPJ *</label>
+                            <label htmlFor='document'>CNPJ / CPF*</label>
                             <IMaskInput
                                 type='text'
                                 name='document'
                                 id='document'
                                 readOnly={editMode}
-                                defaultValue={props.cnpj}
-                                mask={[
-                                    { mask: '000.000.000-00', maxLength: 11 },
-                                    { mask: '00.000.000/0000-00' }
-                                ]}
+                                defaultValue={props.document}
+                                // mask={[
+                                //     { mask: '000.000.000-00', maxLength: 11 },
+                                //     { mask: '00.000.000/0000-00' }
+                                // ]}
                                 style={{
                                     backgroundColor: !editMode ? '' : 'rgba(101, 98, 143, 0.219)',
 
@@ -109,11 +134,11 @@ export default function CompanyDataForm(props: CompanyDataProps) {
                                 ))}</p>)}
                         </div>
                         <div className={`${styles.inputGroup} ${styles.box2}`}>
-                            <label htmlFor='corporate_name'>Nome Fantasia *</label>
+                            <label htmlFor='fantasy_name'>Nome Fantasia *</label>
                             <input
                                 type='text'
-                                name='corporate_name'
-                                defaultValue={props.corporate_name}
+                                name='fantasy_name'
+                                defaultValue={props.fantasy_name}
                                 readOnly={editMode}
                                 style={{
                                     backgroundColor: !editMode ? '' : 'rgba(101, 98, 143, 0.219)',
@@ -121,8 +146,8 @@ export default function CompanyDataForm(props: CompanyDataProps) {
                                 }}
 
                             />
-                            {errorsMessage?.corporate_name && (
-                                <p className={styles.errorMessage}>{errorsMessage.corporate_name.map((error, index) => (
+                            {errorsMessage?.fantasy_name && (
+                                <p className={styles.errorMessage}>{errorsMessage.fantasy_name.map((error, index) => (
                                     <span key={index}>{error}</span>
                                 ))}</p>)}
                         </div>
@@ -146,11 +171,11 @@ export default function CompanyDataForm(props: CompanyDataProps) {
                             </select>
                         </div>
                         <div className={`${styles.inputGroup} ${styles.box4}`}>
-                            <label htmlFor='total_employees'>Total de colaboradores</label>
+                            <label htmlFor='colaborators_number'>Total de colaboradores</label>
                             <input
                                 type='number'
-                                name='total_employees'
-                                defaultValue={props.total_employees}
+                                name='colaborators_number'
+                                defaultValue={props.colaborators_number}
                                 readOnly={editMode}
                                 style={{
                                     backgroundColor: !editMode ? '' : 'rgba(101, 98, 143, 0.219)',
@@ -212,12 +237,13 @@ export default function CompanyDataForm(props: CompanyDataProps) {
                     </div>
                     <section className={styles.containerAddress}>
                         <div className={`${styles.inputGroup} ${styles.box1}`}>
-                            <label htmlFor='zip_code'>CEP *</label>
+                            <label htmlFor='postal_code'>CEP *</label>
                             <IMaskInput
                                 type='text'
-                                name='zip_code'
-                                id='zip_code'
-                                autoComplete='zip_code'
+                                name='postal_code'
+                                id='postal_code'
+                                autoComplete='postal_code'
+                                defaultValue={props.postal_code}
                                 mask={'00000-000'}
                                 readOnly={editMode}
                                 style={{
@@ -234,8 +260,9 @@ export default function CompanyDataForm(props: CompanyDataProps) {
                             <label htmlFor='street'>Rua  *</label>
                             <input
                                 type='text'
-                                name='street'
+                                name='line1'
                                 readOnly={editMode}
+                                defaultValue={props.line1}
                                 style={{
                                     backgroundColor: !editMode ? '' : 'rgba(101, 98, 143, 0.219)',
 
@@ -250,7 +277,8 @@ export default function CompanyDataForm(props: CompanyDataProps) {
                             <label htmlFor='number'>Número  *</label>
                             <input
                                 type='text'
-                                name='number'
+                                name='line2'
+                                defaultValue={props.line2}
                                 readOnly={editMode}
                                 style={{
                                     backgroundColor: !editMode ? '' : 'rgba(101, 98, 143, 0.219)',
@@ -266,7 +294,8 @@ export default function CompanyDataForm(props: CompanyDataProps) {
                             <label htmlFor='complement'>Complemento</label>
                             <input
                                 type='text'
-                                name='complement'
+                                name='line3'
+                                defaultValue={props.line3 ? props.line3 : ''}
                                 readOnly={editMode}
                                 style={{
                                     backgroundColor: !editMode ? '' : 'rgba(101, 98, 143, 0.219)',
@@ -280,6 +309,7 @@ export default function CompanyDataForm(props: CompanyDataProps) {
                             <input
                                 type='text'
                                 name='neighborhood'
+                                defaultValue={props.neighborhood}
                                 readOnly={editMode}
                                 style={{
                                     backgroundColor: !editMode ? '' : 'rgba(101, 98, 143, 0.219)',
@@ -297,6 +327,7 @@ export default function CompanyDataForm(props: CompanyDataProps) {
                             <input
                                 type='text'
                                 name='city'
+                                defaultValue={props.city}
                                 readOnly={editMode}
                                 style={{
                                     backgroundColor: !editMode ? '' : 'rgba(101, 98, 143, 0.219)',
@@ -313,6 +344,7 @@ export default function CompanyDataForm(props: CompanyDataProps) {
                             <label htmlFor="state">UF *</label>
                             <select name="state"
                                 disabled={editMode}
+                                defaultValue={props.state}
                                 style={{
                                     backgroundColor: !editMode ? '' : 'rgba(101, 98, 143, 0.219)',
 
@@ -334,6 +366,7 @@ export default function CompanyDataForm(props: CompanyDataProps) {
                             <input
                                 type='text'
                                 name='country'
+                                defaultValue={props.country}
                                 readOnly={editMode}
                                 style={{
                                     backgroundColor: !editMode ? '' : 'rgba(101, 98, 143, 0.219)',
@@ -353,6 +386,12 @@ export default function CompanyDataForm(props: CompanyDataProps) {
                     >Voltar</Link>
                     <button
                         type='submit'
+                        disabled={editMode}
+                        style={{
+                            backgroundColor: !editMode ? '' : 'rgba(101, 98, 143, 0.219)',
+                            cursor: !editMode ? 'pointer' : 'auto'
+
+                        }}
                     >
                         Salvar Dados
                     </button>

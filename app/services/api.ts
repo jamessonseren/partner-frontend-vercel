@@ -11,8 +11,6 @@ import { auth } from "../lib/auth";
 export async function setupAPIClient(ctx = {}) {
     const cookieStore = cookies()
 
-
-    let cookie = cookieStore.get('next-auth.session-token')?.value
     const session = await auth()
 
     const api = axios.create({
@@ -24,7 +22,6 @@ export async function setupAPIClient(ctx = {}) {
     })
     api.interceptors.response.use(response => {
 
-        // console.log("response interceptor: ", response)
         return response
     }, async (error: AxiosError) => {
         if (error.response?.status === 401) {

@@ -4,15 +4,18 @@ import styles from '../../ui/dashboard/dashboard.module.css'
 import Footer from "@/app/components/footer/footer"
 import { ReactNode } from "react"
 import BackButton from "@/app/components/backButton/backbutton"
+
 import { FaChevronLeft } from "react-icons/fa6"
+
 
 interface LayoutProps {
     children: ReactNode
 }
-const Layout = async ({ children }: LayoutProps) => {
 
-
-    return (
+const Layout = async ({children}: LayoutProps) => {
+   
+    return(
+   main
         <div className={styles.container}>
             <input className={styles.activeSidebar} type="checkbox" id="activeSidebar" />
             <div className={styles.menu}>

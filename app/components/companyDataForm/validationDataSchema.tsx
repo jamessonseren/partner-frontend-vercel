@@ -58,15 +58,14 @@ export const dataSchemaZod = z.object({
         .string()
         .min(1, { message: "Documento é obrigatório"})
         .trim()
-        
         .transform((value) => value.replace(/[^\d]/g, '')),
         // .test('validateDocument', 'Invalid CPF/CNPJ', (value) => isValidCNPJ(value) || isValidCPF(value)),
-    corporate_name: z
+    fantasy_name: z
         .string()
         .min(1, { message: "Nome Fantasia é obrigatório"}),
     classification: z
         .string(),
-    total_employees: z
+    colaborators_number: z
         .string()
         .min(1, { message: "Total de colaboradores é obrigatório"}),
     phone_1: z
@@ -77,19 +76,18 @@ export const dataSchemaZod = z.object({
     phone_2: z
         .optional(z.string()),
         //.transform((value) => value.replace(/[^\d]/g, '')),
-    street: z
+    line1: z
         .string()
         .min(1, { message: "Rua é obrigatório"}),
-    number: z
+    line2: z
         .string()
         .min(1, { message: "Número é obrigatório"}),
-    complement: z
-        .string()
-        .min(1, { message: "Este campo é obrigatório"}),
+    line3: z
+        .string(),
     neighborhood: z
         .string()
         .min(1, { message: "Bairro é obrigatório"}),
-    zip_code: z
+    postal_code: z
         .string()
         .min(1, { message: "CEP é obrigatório"}),
         //.test('validateCEP', 'Cep inváido', (value) => isValidCEP(value)),
