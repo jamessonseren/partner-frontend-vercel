@@ -9,15 +9,15 @@ import { auth } from "../lib/auth";
 // import { signOut } from "../contexts/authContext";
 
 export async function setupAPIClient(ctx = {}) {
-   const cookieStore = cookies()
-   
+    const cookieStore = cookies()
 
-   let cookie = cookieStore.get('next-auth.session-token')?.value
+
+    let cookie = cookieStore.get('next-auth.session-token')?.value
     const session = await auth()
 
     const api = axios.create({
-        baseURL: 'http://localhost:3333',
-        //baseURL: 'https://vercel-correct-backend.vercel.app',
+        //baseURL: 'http://localhost:3333',
+        baseURL: 'https://vercel-correct-backend.vercel.app',
         headers: {
             Authorization: `Bearer ${session?.user.token}`
         }
@@ -30,11 +30,11 @@ export async function setupAPIClient(ctx = {}) {
         if (error.response?.status === 401) {
             if (!cookieStore.has('next-auth.session-token')) {
                 console.log("*****************Caiu aqui********************")
-                
+
             } else {
                 console.log('caiu aqui 2')
-                
-        
+
+
                 return Promise.reject(new AuthTokenError)
             }
         }
