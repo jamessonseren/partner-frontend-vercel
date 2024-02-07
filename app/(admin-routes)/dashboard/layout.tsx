@@ -15,7 +15,7 @@ interface LayoutProps {
 const Layout = async ({children}: LayoutProps) => {
    
     return(
-   main
+   
         <div className={styles.container}>
             <input className={styles.activeSidebar} type="checkbox" id="activeSidebar" />
             <div className={styles.menu}>

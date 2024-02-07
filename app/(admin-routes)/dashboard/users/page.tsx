@@ -1,15 +1,10 @@
-// import { fetchUsers } from "@/app/lib/data";
-// import Pagination from "@/app/components/pagination/pagination";
 import Search from "@/app/components/search/search";
 import styles from './users.module.css'
-import Image from "next/image";
 import Link from "next/link";
 
 import { deleteUser, fetchCompanyUsers } from "@/app/lib/actions";
 import Pagination from "@/app/components/pagination/pagination";
 import { auth } from "@/app/lib/auth";
-// import { useContext } from "react";
-// import { AuthContext } from "@/app/contexts/authContext";
 export type CompanyUser = {
   uuid: string
   img: string | null
