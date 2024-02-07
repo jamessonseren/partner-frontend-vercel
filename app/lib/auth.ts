@@ -1,9 +1,9 @@
 
 import { setupAPIClient } from "@/app/services/api"
-import { NextAuthConfig } from "next-auth"
 import NextAuth from "next-auth"
 import Credentials from 'next-auth/providers/credentials';
 import { authConfig } from "./auth.config";
+import { fetchCompanyUserDetails } from "./actions";
 
 
 export const {
@@ -28,7 +28,7 @@ export const {
                 try {
 
                     const response = await api.post("/company-user-login", {
-                        business_document: credentials?.business_document,
+                        business_document: credentials.business_document,
                         email: credentials.email,
                         user_name: credentials?.user_name,
                         password: credentials?.password
@@ -36,15 +36,13 @@ export const {
                     const user = await response.data
 
                     if (user) {
+
                         return user
                     }
 
                     return null
                 } catch (err) {
-                    // await signOut({
-                    //     redirect: false
-                    // })
-                    // router.replace('/')
+                    
                     console.log({ err })
                     return
                 }
@@ -60,8 +58,11 @@ export const {
             return token
         },
         session: async ({ session, token }: any) => {
+            // const userData = await fetchCompanyUserDetails()
 
-            session.user = token.user as any
+            
+            session.user = token.user
+            
             return session
         },
         ...authConfig

@@ -4,16 +4,13 @@ declare module 'next-auth' {
     interface Session {
         user:{
             uuid: string
-            img: string | null
-            user_name: string
-            is_client: boolean
-            is_admin: boolean
-            is_active: boolean
             business_info_id: string
-            business_document: string
-            admin_document: string | null
-            permissions: string[]
+            is_admin: boolean
+            document: string | null
+            user_name: string
             email: string | null
+            img: string | null
+            permissions: string[]
             function: string | null
             token: string
 
