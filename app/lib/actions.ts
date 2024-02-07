@@ -62,19 +62,7 @@ export const updateData = async (formData: FormData) => {
 
   } = Object.fromEntries(formData)
 
-  // if(!document 
-  //   || !fantasy_name 
-  //   || !classification 
-  //   || !colaborators_number 
-  //   || !phone_1 
-  //   || !postal_code
-  //   || !line1
-  //   || !line2
-  //   || !neighborhood
-  //   || !city
-  //   || !state
-  //   || !country
-  //   ) {console.log("data missing")}
+
   const result = dataSchemaZod.safeParse({
     line1,
     line2,
