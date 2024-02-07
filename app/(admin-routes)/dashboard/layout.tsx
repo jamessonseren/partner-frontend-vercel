@@ -4,12 +4,12 @@ import styles from '../../ui/dashboard/dashboard.module.css'
 import Footer from "@/app/components/footer/footer"
 import { ReactNode } from "react"
 import BackButton from "@/app/components/backButton/backbutton"
+import { fetchCompanyUserDetails } from "@/app/lib/actions"
 
 interface LayoutProps {
     children: ReactNode
 }
 const Layout = async ({children}: LayoutProps) => {
-  
    
     return(
         <div className={styles.container}>

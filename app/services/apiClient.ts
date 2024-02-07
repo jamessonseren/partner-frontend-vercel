@@ -1,3 +1,7 @@
 import { setupAPIClient } from "./api";
 
-export const api = setupAPIClient()
+export async function ApiSetup(){
+
+    return await setupAPIClient()
+}
+
