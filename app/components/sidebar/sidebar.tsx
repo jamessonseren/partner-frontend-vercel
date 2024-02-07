@@ -11,14 +11,11 @@ import {
     MdAttachMoney,
     MdWork,
     MdAnalytics,
-    MdPeople,
     MdOutlineSettings,
     MdHelpCenter,
-    MdLogout,
 } from "react-icons/md";
 import LogOutButton from './logOutButton/logOutButton';
 import { auth } from '@/app/lib/auth';
-import { useContext } from 'react';
 
 const menuItems = [
     {
@@ -94,7 +91,7 @@ const menuItems = [
 const SideBar = async () => {
 
     const session = await auth()
-
+    console.log("session sidebar", session)
 
     return (
         <div className={styles.container}>

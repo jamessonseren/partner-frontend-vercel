@@ -7,12 +7,13 @@ declare module 'next-auth' {
             business_info_id: string
             is_admin: boolean
             document: string | null
-            user_name: string
+            user_name: string | null
             email: string | null
             img: string | null
             permissions: string[]
             function: string | null
             token: string
+            status: string
 
         }
     }

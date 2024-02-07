@@ -32,7 +32,7 @@ const UsersPage = async ({ searchParams }: any) => {
 
   const session = await auth()
 
-  const { users, count } = await fetchCompanyUsers(q, page, session!.user.business_document);
+  const { users, count } = await fetchCompanyUsers(q, page, session.user.document);
  
 
   return (
@@ -87,7 +87,7 @@ const UsersPage = async ({ searchParams }: any) => {
                     </button>
                   </Link>
                   <form action={deleteUser}>
-                    <input type="hidden" name="business_document" value={(session?.user.business_document)} />
+                    <input type="hidden" name="business_document" value={(session?.user.document)} />
                     <input type="hidden" name="id" value={(user.uuid)} />
                     <button className={`${styles.button} ${styles.delete}`}>
                       Deletar

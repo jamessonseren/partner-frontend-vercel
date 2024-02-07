@@ -137,7 +137,7 @@ export const fetchSingleUser = async (user_uuid: string) => {
   }
 };
 
-export const fetchCompanyUsers = async (q: string, page: any, business_document: string) => {
+export const fetchCompanyUsers = async (q: string, page: any, business_document: string | null) => {
   const result: { count?: number; users?: CompanyUser[]; error?: string } = {};
   const regex = new RegExp(q, "i");
   const ITEM_PER_PAGE = 5;
@@ -224,7 +224,6 @@ export const fetchCompanyUserDetails = async() => {
   try{
     if(session) {
       const userData = await api.get("/company-user-details")
-      console.log(userData.data)
 
       return userData.data
     }
