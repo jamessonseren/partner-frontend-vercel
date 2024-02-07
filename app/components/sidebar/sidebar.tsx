@@ -4,7 +4,6 @@ import styles from './sidebar.module.css'
 import Image from 'next/image';
 import { FaChevronLeft } from "react-icons/fa6";
 
-
 import {
     MdDashboard,
     MdSupervisedUserCircle,
@@ -92,9 +91,9 @@ const menuItems = [
 const SideBar = async () => {
 
     const session = await auth()
-    console.log("session sidebar", session)
 
     return (
+
         <aside className={styles.sidebar}>
             <div className={styles.container}>
                 <div className={styles.user}>
@@ -103,6 +102,7 @@ const SideBar = async () => {
                         <span className={styles.userName}>{session?.user.user_name}</span>
                         <span className={styles.userTitle}>{session?.user.is_admin ? "Admin" : ""}</span>
                     </div>
+
                 </div>
                 <ul className={styles.list}>
                     {menuItems.map((cat) => (

@@ -15,13 +15,11 @@ export type CompanyUser = {
   img: string | null
   is_admin: boolean
   user_name: string
-  business_document: string
-  is_active: boolean
   document: string | null
-  is_client: boolean
   permissions: string[]
   email: string | null
   function: string | null
+  status: string
   token: string
 }
 
@@ -31,8 +29,8 @@ const UsersPage = async ({ searchParams }: any) => {
   const page = searchParams?.page || 1;
 
   const session = await auth()
-
-  const { users, count } = await fetchCompanyUsers(q, page, session.user.document);
+  
+  const { users, count } = await fetchCompanyUsers(q, page, session!.user?.business_info_id);
  
 
   return (
@@ -78,7 +76,7 @@ const UsersPage = async ({ searchParams }: any) => {
             ))}
           </ul>
               </td>
-              <td>{user.is_active ? "Ativo" : "Inativo"}</td>
+              <td>{user.status === 'active' ? "Ativo" : "Inativo"}</td>
               <td>
                 <div className={styles.buttons}>
                   <Link href={`/dashboard/users/${user.uuid}`}>
@@ -87,7 +85,6 @@ const UsersPage = async ({ searchParams }: any) => {
                     </button>
                   </Link>
                   <form action={deleteUser}>
-                    <input type="hidden" name="business_document" value={(session?.user.document)} />
                     <input type="hidden" name="id" value={(user.uuid)} />
                     <button className={`${styles.button} ${styles.delete}`}>
                       Deletar

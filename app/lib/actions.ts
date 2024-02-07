@@ -137,14 +137,14 @@ export const fetchSingleUser = async (user_uuid: string) => {
   }
 };
 
-export const fetchCompanyUsers = async (q: string, page: any, business_document: string | null) => {
+export const fetchCompanyUsers = async (q: string, page: any, business_info_uuid: string) => {
   const result: { count?: number; users?: CompanyUser[]; error?: string } = {};
   const regex = new RegExp(q, "i");
   const ITEM_PER_PAGE = 5;
   const api = await setupAPIClient();
 
   try {
-    const response = await api.get(`/company-users?business_document=${business_document}`);
+    const response = await api.get(`/company-users?business_info_uuid=${business_info_uuid}`);
     const users = response.data
       .filter((user: CompanyUser) => regex.test(user.user_name))
       .slice(ITEM_PER_PAGE * (page - 1), ITEM_PER_PAGE * page);
