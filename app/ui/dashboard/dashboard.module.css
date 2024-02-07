@@ -1,38 +1,99 @@
-.container{
+.container {
     display: flex;
+    width: 98vw;
+    height: 100%;
+    overflow: hidden;
 }
 
-.menu{
+.activeSidebar,
+.menuButton {
+    display: none;
+}
+
+.menu {
     flex: 1;
     background-color: var(--bgSoft);
-    padding: 2rem;
+    margin-right: 2rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
-.content{
+
+@media (max-width: 780px) {
+    .menu {
+        width: 300px;
+        position: fixed;
+        height: 100%;
+        top: 0;
+        left: 0;
+        overflow: auto;
+        scrollbar-width: 3px;
+        left: -120vw;
+        z-index: 99;
+    }
+
+    .menuButton {
+        cursor: pointer;
+        background-color: #212d49;
+        opacity: 0.8;
+        padding: .5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        border-radius: 0 5px 5px 0;
+        height: 5rem;
+        width: 1.5rem;
+        top: 5px;
+        transition: 0.2s;
+        left: 0;
+    }
+
+    .menuButton svg {
+        cursor: pointer;
+        height: 60%;
+        transform: rotate(180deg);
+    }
+
+    .activeSidebar:checked~.menuButton svg {
+        transform: rotate(0deg);
+    }
+
+    .activeSidebar:checked~.menu {
+        left: 0;
+    }
+
+    .activeSidebar:checked~.menuButton {
+        left: 300px;
+    }
+}
+
+.content {
     flex: 4;
     padding: 2rem;
-
+    width: 75vw;
+    overflow-y: scroll;
 }
 
-.wrapper{
+.wrapper {
     display: flex;
     gap: 20px;
     margin-top: 20px;
 }
 
-.main{
+.main {
     flex: 3;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.cards{
+.cards {
     display: flex;
     gap: 20px;
     justify-content: space-between;
 }
 
-.side{
+.side {
     flex: 1;
 }

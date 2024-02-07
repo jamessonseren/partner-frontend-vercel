@@ -2,6 +2,7 @@
 import MenuLink from './menuLink/menuLink';
 import styles from './sidebar.module.css'
 import Image from 'next/image';
+import { FaChevronLeft } from "react-icons/fa6";
 
 import {
     MdDashboard,
@@ -47,7 +48,7 @@ const menuItems = [
             },
         ],
     },
-    
+
     {
         title: "Ecommerce",
         list: [
@@ -66,10 +67,10 @@ const menuItems = [
                 path: "/dashboard/ecommerce/products",
                 icon: <MdShoppingBag />,
             },
-            
+
         ],
     },
-    
+
     {
         title: "Empresa",
         list: [
@@ -92,27 +93,32 @@ const SideBar = async () => {
     const session = await auth()
 
     return (
-        <div className={styles.container}>
-            <div className={styles.user}>
-                <Image className={styles.userImage} src="/noavatar.png" alt='avatar' width="50" height="50" />
-                <div className={styles.userDetails}>
-                    <span className={styles.userName}>{session?.user.user_name}</span>
-                    <span className={styles.userTitle}>{session?.user.is_admin ? "Admin" : "Usuário"}</span>
-                </div>
-            </div>
-            <ul className={styles.list}>
-                {menuItems.map((cat) => (
-                    <li key={cat.title}>
-                        <span className={styles.cat}>{cat.title}</span>
-                        {cat.list.map((item) => (
-                            <MenuLink title={item.title} list={[item]} key={item.title} />
-                        ))}
-                    </li>
-                ))}
-            </ul>
-            <LogOutButton />
 
-        </div>
+        <aside className={styles.sidebar}>
+            <div className={styles.container}>
+                <div className={styles.user}>
+                    <Image className={styles.userImage} src="/noavatar.png" alt='' width="50" height="50" />
+                    <div className={styles.userDetails}>
+                        <span className={styles.userName}>{session?.user.user_name}</span>
+                        <span className={styles.userTitle}>{session?.user.is_admin ? "Admin" : ""}</span>
+                    </div>
+
+                </div>
+                <ul className={styles.list}>
+                    {menuItems.map((cat) => (
+                        <li key={cat.title}>
+                            <span className={styles.cat}>{cat.title}</span>
+                            {cat.list.map((item) => (
+                                <MenuLink title={item.title} list={[item]} key={item.title} />
+                            ))}
+                        </li>
+                    ))}
+                </ul>
+                <LogOutButton />
+
+            </div>
+        </aside>
+
     )
 }
 
