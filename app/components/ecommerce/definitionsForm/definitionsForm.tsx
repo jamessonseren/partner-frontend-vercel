@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import styles from './definitionsForm.module.css'
 import Select from 'react-select'
-import { deliveryOptions, salesTypeOptions } from '@/app/utils/company-options.utils';
+import { correctDelivery, deliveryOptions, distanceDelivery, salesTypeOptions } from '@/app/utils/company-options.utils';
 
 import makeAnimated from 'react-select/animated';
 import { selectStyle } from '../../ui/input';
@@ -14,6 +14,8 @@ export const DefinitionsForm = () => {
     const [title, setTitle] = useState('');
     const [charCount, setCharCount] = useState(0);
     const [delivery, setDelivery] = useState<string>('1')
+    const [salesType, setSalesTye] = useState<string>('')
+    const [correctDeliveryOStatus, setCorrectDeliveryStatus] = useState<string>('')
 
     const handleInputChange = (event: any) => {
         const inputValue = event.target.value;
@@ -40,18 +42,21 @@ export const DefinitionsForm = () => {
                     <p>{charCount}/{80} caracteres</p>
 
                 </div>
-                <div className={styles.grid}>
+                <div className={styles.grid1}>
                     <div className={styles.inputBox}>
                         <label htmlFor="">Tipo de venda?</label>
-                        <Select                     
+                        <Select
                             components={animatedComponents}
                             placeholder="Selecione uma ou mais opções"
-                            isMulti
                             options={salesTypeOptions}
                             styles={selectStyle}
+                            //value={salesType.find(option => option.value === correctDeliveryOStatus)}
+                            // onChange={(selectedOption) => {
+                            //     setCorrectDeliveryStatus(selectedOption ? selectedOption.value : '');
+                            // }}
                         />
                     </div>
-                    <div className={styles.inputBox}>
+                    {/* <div className={styles.inputBox}>
                         <label htmlFor="">Entrega?</label>
                         <Select
                             options={deliveryOptions}
@@ -59,36 +64,44 @@ export const DefinitionsForm = () => {
                             className={styles.select}
                             styles={selectStyle}
                         />
-                    </div>
+                    </div> */}
                     <div className={styles.inputBox}>
                         <label htmlFor="">Deseja que a Correct cuide da entrega?</label>
                         <Select
-                            options={deliveryOptions}
+                            options={correctDelivery}
                             placeholder="Selecione uma das opções"
                             className={styles.select}
                             styles={selectStyle}
+                            value={correctDelivery.find(option => option.value === correctDeliveryOStatus)}
+                            onChange={(selectedOption) => {
+                                setCorrectDeliveryStatus(selectedOption ? selectedOption.value : '');
+                            }}
                         />
                     </div>
                 </div>
 
 
-                {delivery === '1' && (
+                {correctDeliveryOStatus === 'Sim, quero que cuide de determinadas entregas' && (
                     <div className={styles.inputBox}>
-                        <label htmlFor="">Opções de Entrega</label>
+                       
                         <div className={styles.deliveryOptions}>
                             {/* <select name="cat" id="cat" onChange={(e) => setDelivery(e.target.value)}>
                             <option value="yes">Sim</option>
                             <option value="no">Não</option>
                         </select> */}
                             <div>
-                                <p>Local?</p>
-                                <select name="cat" id="cat">
-                                    <option value="" disabled hidden>Selecione uma opção</option>
-                                    <option value="1">Sim</option>
-                                    <option value="0">Não</option>
-                                </select>
+                                <p>A partir de que distância?</p>
+                                <Select
+                                    options={distanceDelivery}
+                                    placeholder="Selecione uma das opções"
+                                    className={styles.select}
+                                    styles={selectStyle}
+                                    onChange={(selectedOption) => {
+                                        setCorrectDeliveryStatus(selectedOption ? selectedOption.value : '');
+                                    }}
+                                />
                             </div>
-                            <div>
+                            {/* <div>
                                 <p>Cidade</p>
                                 <select name="cat" id="cat">
                                     <option value="" disabled hidden>Selecione uma opção</option>
@@ -102,7 +115,7 @@ export const DefinitionsForm = () => {
                                     <option value="1">Sim</option>
                                     <option value="0">Não</option>
                                 </select>
-                            </div>
+                            </div> */}
 
                         </div>
 

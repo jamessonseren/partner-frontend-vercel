@@ -6,6 +6,7 @@ import { setupAPIClient } from "../services/api"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { auth } from "./auth"
+import { userInfoSchema } from "../components/userInfo/userInfo"
 
 
 export async function fetchCompanyData(business_info_id: string | undefined) {

@@ -16,16 +16,18 @@ export default function Settings() {
                     secondText="Clique aqui para atualizar os dados da empresa"
                 />
             </Link>
-            <Card
+            <Link href="/dashboard/settings/user">
+                <Card
+                    title="Usuário"
+                    mainText="Informações de usuário"
+                    secondText="Clique aqui para gerenciar informações de usuário"
+                />
+            </Link>
+            {/* <Card
                 title="Empresa"
                 mainText="Informações da empresa"
                 secondText=""
-            />
-            <Card
-                title="Empresa"
-                mainText="Informações da empresa"
-                secondText=""
-            />
+            /> */}
         </main>
     )
 }
