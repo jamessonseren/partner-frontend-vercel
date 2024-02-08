@@ -1,17 +1,22 @@
 "use client"
 
 import styles from './page.module.css'
-import {z} from 'zod';
+import { z } from 'zod';
 
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 
 import { useRouter } from 'next/navigation';
 
+import { RiLockPasswordFill } from "react-icons/ri";
+import { HiIdentification } from "react-icons/hi2";
+import { MdAlternateEmail } from "react-icons/md";
+
+
 export default function Home() {
   const router = useRouter()
 
-   async function login(formData: FormData) {
+  async function login(formData: FormData) {
 
 
     const { business_document, credential, password } = Object.fromEntries(formData)
@@ -22,13 +27,13 @@ export default function Home() {
 
     let emailValue = ''
     let user_name = ''
-   
-    
+
+
     const emailValidation = z.string().email().safeParse(credential)
-    if(emailValidation.success) {
+    if (emailValidation.success) {
       emailValue = emailValidation.data
-      
-    }else{
+
+    } else {
       user_name = credential as string
       emailValue = ''
     }
@@ -53,40 +58,77 @@ export default function Home() {
   return (
     <>
 
-      <div className={styles.containerCenter}>
+      <main className={styles.containerCenter}>
 
-        <div className={styles.login}>
-          {/* <Image src={logoImg} alt="Logo Correct" className={styles.logo} /> */}
 
-          <form action={login}>
-            <h1>Login</h1>
-            <label htmlFor="document">CNPJ / CPF</label>
-            <input
-              type="text"
-              name="business_document"
-            />
 
-            <label htmlFor="user_name">Email ou nome de usuário</label>
-            <input
-              type="text"
-              name="credential"
-            />
-            <label htmlFor="password">Senha</label>
-            <input
-              type="password"
-              name="password"
-            />
+        <section className={styles.login}>
+
+          <div className={styles.logoTop}>
+            <h2>Correct</h2>
+          </div>
+
+          <form action={login} className={styles.formLogin}>
+            <h1>Faça seu login
+              na plataforma</h1>
+
+            <section className={styles.containerInputsLogin}>
+              <div className={styles.inputLogin}>
+                <label htmlFor="document">
+                  <HiIdentification size={20} />
+                </label>
+                <input
+                  type="text"
+                  name="business_document"
+                  placeholder='CNPJ / CPF'
+                />
+              </div>
+              <div className={styles.inputLogin}>
+                <label htmlFor="credentials">
+                  <MdAlternateEmail size={20} />
+                </label>
+                <input
+                  type="text"
+                  name="credential"
+                  placeholder='Email ou nome de usuário'
+                />
+              </div>
+              <div className={styles.inputLogin}>
+                <label htmlFor="password">
+                  <RiLockPasswordFill size={20} />
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder='Senha'
+                />
+              </div>
+
+            </section>
+
+            <div className={styles.forgetPass}>
+              <span>
+                <a href="#">Esqueci minha senha</a>
+              </span>
+            </div>
 
             <button
               type='submit'
+              className={styles.buttonLogin}
             >
-              Acessar
+              Entrar
             </button>
 
           </form>
-          <Link href="/signup" className={styles.text}>Não possui conta? Cadastre-se</Link>
-        </div>
-      </div>
+
+
+          <Link href="/signup" className={styles.text}>Não possui conta ? Cadastre-se</Link>
+
+          <div className={styles.logoBottom}>
+            <h2>Correct</h2>
+          </div>
+        </section>
+      </main >
 
     </>
   )
