@@ -107,6 +107,7 @@
 .logo {
   position: relative;
 }
+
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
@@ -178,11 +179,9 @@
     border-radius: 0;
     border: none;
     border-bottom: 1px solid rgba(var(--callout-border-rgb), 0.25);
-    background: linear-gradient(
-      to bottom,
-      rgba(var(--background-start-rgb), 1),
-      rgba(var(--callout-rgb), 0.5)
-    );
+    background: linear-gradient(to bottom,
+        rgba(var(--background-start-rgb), 1),
+        rgba(var(--callout-rgb), 0.5));
     background-clip: padding-box;
     backdrop-filter: blur(24px);
   }
@@ -193,11 +192,9 @@
     inset: auto 0 0;
     padding: 2rem;
     height: 200px;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgb(var(--background-end-rgb)) 40%
-    );
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgb(var(--background-end-rgb)) 40%);
     z-index: 1;
   }
 }
@@ -223,7 +220,124 @@
   from {
     transform: rotate(360deg);
   }
+
   to {
     transform: rotate(0deg);
   }
+}
+
+
+.containerCenter {
+  width: 100vw;
+  height: 100vh;
+  background: url("../../public/bg-teste.png") center center;
+  display: flex;
+  justify-content: end;
+}
+
+.login {
+  height: 100%;
+  width: 500px;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.logoTop {
+  margin-bottom: 5rem;
+}
+
+.logoBottom {
+  margin-top: 5rem;
+}
+
+.formLogin {
+  width: 80%;
+  padding: 1rem;
+  background: var(--bgSoft);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.formLogin h1 {
+  width: 200px;
+  font-size: 1.5rem;
+  margin: 2rem 0 3rem 0;
+  text-align: justify;
+}
+
+.containerInputsLogin {
+  width: 100%;
+}
+
+.inputLogin {
+  background: var(--bg);
+  display: flex;
+  width: 100%;
+  height: 2rem;
+  padding: 5px;
+  margin-bottom: 1rem;
+}
+
+.inputLogin:last-child {
+  margin-bottom: 2px;
+}
+
+.inputLogin label {
+  color: var(--textSoft);
+  height: 100%;
+  padding: .5rem;
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+}
+
+.inputLogin input {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  background: transparent;
+  border: none;
+  color: var(--text);
+}
+
+.forgetPass {
+  width: 100%;
+  text-align: left;
+  transition: 1s;
+  font-size: small;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.forgetPass:hover {
+  text-decoration: underline;
+}
+
+.buttonLogin {
+  margin: 1rem 0;
+  background: linear-gradient(243.46deg, #043451 16.66%, #043451 16.66%, #064469 83.34%);
+  border: none;
+  width: 80%;
+  height: 2rem;
+  color: var(--text);
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 2px;
+  transition: 1s;
+}
+
+.buttonLogin:hover {
+  box-shadow: 0px 1px 8px #000;
+}
+
+.text {
+  margin-top: 2rem;
+  text-decoration: underline;
 }
