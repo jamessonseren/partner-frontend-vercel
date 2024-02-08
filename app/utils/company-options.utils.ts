@@ -37,4 +37,13 @@ export const stateOptions = [
     { value: 'DF', label: 'DF' },
 ];
 
+export const deliveryOptions= [
+    "Sim, para o Brasil Inteiro",
+    "Sim, mas com limitações",
+    "Não, o cliente vem buscar"
+].map(option => ({ value: option, label: option }));
 
+export const salesTypeOptions = [
+    "Presencial",
+    "Ecommerce"
+].map(option => ({ value: option, label: option }));

@@ -4,6 +4,7 @@ import Link from "next/link";
 import styles from "./products.module.css"
 import Search from '../../../../components/search/search'
 import Pagination from "@/app/components/pagination/pagination";
+import MobilePreviewPage from "@/app/components/mobileScreen/mobileScreen";
 
 export type ProductsProps = {
   id: string
@@ -150,6 +151,7 @@ const ProductsPage = async ({ searchParams }: any) => {
   }
   return (
     <div className={styles.container}>
+      
       <div className={styles.top}>
         <Search placeholder="Pesquise por um produto..." />
         <Link href="/dashboard/ecommerce/products/add">
