@@ -80,19 +80,18 @@ export const {
         })
     ],
     callbacks: {
-        jwt: async ({ token, user }) => {
-            user && (token.user = user)
+        // jwt: async ({ token, user }) => {
+        //     user && (token.user = user)
 
-            return token
-        },
-        session: async ({ session, token }: any) => {
-            session.user = token.user
+        //     return token
+        // },
+        // session: async ({ session, token }: any) => {
+        //     session.user = token.user
 
 
-
-            return session
-        },
-        ...authConfig
+        //     return session
+        // },
+        ...authConfig.callbacks
     }
 })
 
