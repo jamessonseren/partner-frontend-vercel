@@ -1,4 +1,8 @@
 import { NextAuthConfig } from "next-auth"
+import { auth } from "./auth";
+import { redirect } from "next/navigation";
+import { NextResponse } from "next/server";
+
 
 export const authConfig = {
     providers: [],
@@ -6,17 +10,47 @@ export const authConfig = {
         signIn: '/'
     },
     callbacks: {
-        // authorized({ auth, request: { nextUrl } }) {
-        //     const isLoggedIn = !!auth?.user;
-        //     const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
-        //     if (isOnDashboard) {
-        //         if (isLoggedIn) return true;
-        //         return false;  //Redirect unauthenticated users to login page
-        //     } else if (isLoggedIn) {
-        //         return Response.redirect(new URL('/dashboard', nextUrl));
-        //     }
-        //     return true;
-        // },
+        jwt: async ({ token, user }) => {
+            user && (token.user = user)
+
+            return token
+        },
+        session: async ({ session, token }: any) => {
+            session.user = token.user
+
+
+            return session
+        },
+        authorized: ({ auth, request: { nextUrl } }) => {
+            const isLoggedIn = !!auth?.user;
+            const session = auth?.user
+
+            const isOnLoginPage = nextUrl.pathname.startsWith("/");
+            const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
+            const userSettingsPage = nextUrl.pathname.startsWith("/dashboard/settings/user")
+            const financeUser = nextUrl.pathname.startsWith("/dashboard/finances")
+            const salesUser = nextUrl.pathname.startsWith("/sales")
+            const marketing = nextUrl.pathname.startsWith("/marketing")
+
+            if(!isLoggedIn) return false
+
+            if (isOnLoginPage && isLoggedIn && !isOnDashboard) {
+                    
+                    return NextResponse.redirect(new URL("/dashboard", nextUrl));              
+                }
+            if ((isLoggedIn && session?.status === 'pending_password') && !userSettingsPage) {
+               
+                return NextResponse.redirect(new URL('/dashboard/settings/user', nextUrl));
+            }
+           
+                       
+          
+            return true
+
+                   
+
+
+        },
 
     }
 } satisfies NextAuthConfig;

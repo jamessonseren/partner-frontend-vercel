@@ -2,7 +2,6 @@
 import MenuLink from './menuLink/menuLink';
 import styles from './sidebar.module.css'
 import Image from 'next/image';
-import { FaChevronLeft } from "react-icons/fa6";
 
 import {
     MdDashboard,

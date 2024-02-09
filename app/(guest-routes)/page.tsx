@@ -37,22 +37,30 @@ export default function Home() {
       user_name = credential as string
       emailValue = ''
     }
+    try {
 
-    const result = await signIn('credentials', {
-      business_document,
-      email: emailValue,
-      user_name,
-      password,
-      redirect: false
-    })
+      const result = await signIn('credentials', {
+        business_document,
+        email: emailValue,
+        user_name,
+        password,
+        redirect: false
+      })
 
 
-    if (result?.error) {
-      router.replace('/')
-      return
+      if (result?.error) {
+        router.replace('/')
+        return
+      }
+
+      console.log("login feito com sucesso")
+
+      router.replace('/dashboard')
+    } catch {
+      alert("erro no login")
     }
 
-    router.replace('/dashboard')
+
 
   }
   return (

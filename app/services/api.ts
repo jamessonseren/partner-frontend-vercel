@@ -7,6 +7,7 @@ import { auth } from "../lib/auth";
 // import { auth } from "../lib/auth";
 
 // import { signOut } from "../contexts/authContext";
+const baseURL = 'https://api-correct-vercel.vercel.app/'
 
 export async function setupAPIClient(ctx = {}) {
     const cookieStore = cookies()
@@ -14,7 +15,7 @@ export async function setupAPIClient(ctx = {}) {
     const session = await auth()
 
     const api = axios.create({
-        baseURL: 'https://api-correct-vercel.vercel.app/',
+        baseURL: baseURL,
         //baseURL: 'https://vercel-correct-backend.vercel.app',
         headers: {
             Authorization: `Bearer ${session?.user.token}`
