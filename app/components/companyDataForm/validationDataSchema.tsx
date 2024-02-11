@@ -101,5 +101,8 @@ export const dataSchemaZod = z.object({
     country: z
         .string()
         .min(1, { message: "País é obrigatório"}),
+}).refine((data) => +data.colaborators_number >= 0, {
+    message: "Digite um número maior que 0",
+    path:['colaborators_number']
 })
     

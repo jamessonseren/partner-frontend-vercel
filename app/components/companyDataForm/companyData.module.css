@@ -5,21 +5,13 @@
     margin-top: 2rem;
 }
 
-
-
-.form {
-
-    display: flex;
-    flex-direction: column;
-
-}
-
+/* 
 .form>.containerData {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
+} */
 
 .top{
     display: flex;
@@ -185,4 +177,23 @@
 .errorMessage{
     color: rgb(253, 139, 139);
     font-size: .8rem;
+}
+
+@media screen and (max-width: 740px){
+    .top > a{
+        font-size: .8rem;
+    }
+    .containerInfoOverall, .containerAddress{
+        display: flex;
+        flex-direction: column;
+        padding: .3rem;
+    }
+}
+
+@media screen and (max-width: 400px){
+    .top{
+        flex-direction: column-reverse;
+        margin-bottom: 1rem;
+       
+    }
 }

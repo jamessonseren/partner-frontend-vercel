@@ -4,11 +4,9 @@ import axios, { AxiosError } from "axios";
 import { AuthTokenError } from "./errors/AuthTokenError";
 import { cookies } from 'next/headers'
 import { auth } from "../lib/auth";
-// import { auth } from "../lib/auth";
 
-// import { signOut } from "../contexts/authContext";
-const baseURL = 'https://api-correct-vercel.vercel.app/'
-//const baseURL = 'http://localhost:3333'
+//const baseURL = 'https://api-correct-vercel.vercel.app/'
+const baseURL = 'http://localhost:3333'
 
 export async function setupAPIClient(ctx = {}) {
     const cookieStore = cookies()
