@@ -13,11 +13,13 @@ export async function fetchCompanyData(business_info_id: string | undefined) {
   const api = await setupAPIClient()
 
   try {
-    const response = await api.get(`/company-data?business_id=${business_info_id}`)
+    const response = await api.get(`/business-info?business_info_uuid=${business_info_id}`)
 
     const result = response.data
     return result
   } catch (err: any) {
+    if(err.response.data) return err.response.data
+
     console.log("erro: ", err)
     // return err.response.data.error
   }
@@ -33,6 +35,7 @@ export const fetchCompanyAddress = async (address_uuid: string) => {
     console.log('dados atualizados')
     return result
   } catch (err: any) {
+    if(err.response.data) return err.response.data
     console.log("erro: ", err)
     // return err.response.data.error
   }
@@ -89,7 +92,7 @@ export const updateData = async (formData: FormData) => {
 
 
   try {
-    await api.put(`/company-info?data_uuid=${data_uuid}&address_uuid=${address_uuid}`, {
+    await api.patch(`/company-data?data_uuid=${data_uuid}&address_uuid=${address_uuid}`, {
       line1,
       line2,
       line3,
@@ -106,11 +109,12 @@ export const updateData = async (formData: FormData) => {
       phone_2
     })
   } catch (err: any) {
+    if(err.response.data) return err.response.data
     console.log("Unable to update data", err)
 
   }
-  //chamar api para salvar os dados da empresa
-  revalidatePath('/dashboard/settings/company')
+
+  redirect('/dashboard/settings')
 }
 
 
@@ -123,6 +127,7 @@ export const fetchSingleUser = async (user_uuid: string) => {
 
     return response.data
   } catch (err: any) {
+    if(err.response.data) return err.response.data
     console.log({ err });
   }
 };
@@ -142,9 +147,9 @@ export const fetchCompanyUsers = async (q: string, page: any, business_info_uuid
 
     return { count: users.length, users }
   } catch (err: any) {
+    if(err.response.data) return err.response.data
 
     console.log({ err });
-    throw new Error("Failed to fetch company secondary users!");
   }
 };
 
@@ -164,6 +169,8 @@ export const addUser = async (formData: FormData) => {
 
 
   } catch (err: any) {
+    if(err.response.data) return err.response.data
+
     console.log("Erro ao criar usuário", err)
   }
   revalidatePath('/dashboard/users')
@@ -186,6 +193,8 @@ export const editUser = async (formData: FormData) => {
     })
 
   } catch (err: any) {
+    if(err.response.data) return err.response.data
+
     console.log("Erro ao editar usuário: ", err)
   }
   revalidatePath('/dashboard/users')
@@ -218,6 +227,8 @@ export const fetchCompanyUserDetails = async () => {
       return userData.data
     }
   } catch (err: any) {
+    if(err.response.data) return err.response.data
+
     console.log(err)
   }
 }
