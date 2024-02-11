@@ -1,5 +1,5 @@
 
-import { setupAPIClient } from "@/app/services/api"
+import {setupAPIClient } from "@/app/services/api"
 import NextAuth from "next-auth"
 import Credentials from 'next-auth/providers/credentials';
 import { authConfig } from "./auth.config";
@@ -41,7 +41,7 @@ export const {
                         
                         // Requisição e tratamento dos dados utilizando async-await
                         try {
-                            const userDataResponse = await fetch('http://localhost:3333/company-user-details', {
+                            const userDataResponse = await fetch(`https://api-correct-vercel.vercel.app/company-user-details`, {
                                 method: 'GET',
                                 headers: headers
                             });
