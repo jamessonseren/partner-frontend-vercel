@@ -53,11 +53,11 @@ export default function Home() {
         return
       }
 
-      console.log("login feito com sucesso")
 
       router.replace('/dashboard')
-    } catch {
-      alert("erro no login")
+    } catch(err: any) {
+
+      console.log("Login error: ", err)
     }
 
 

@@ -7,7 +7,8 @@ import { auth } from "../lib/auth";
 // import { auth } from "../lib/auth";
 
 // import { signOut } from "../contexts/authContext";
-const baseURL = 'https://api-correct-vercel.vercel.app/'
+//const baseURL = 'https://api-correct-vercel.vercel.app/'
+const baseURL = 'http://localhost:3333'
 
 export async function setupAPIClient(ctx = {}) {
     const cookieStore = cookies()

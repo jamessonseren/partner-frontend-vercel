@@ -6,7 +6,7 @@ import { setupAPIClient } from "../services/api"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { auth } from "./auth"
-import { userInfoSchema } from "../components/userInfo/userInfo"
+import { userInfoSchema, userInfoSchemaFirstSignIn } from "../components/userInfo/userInfoValidationSchema"
 
 
 export async function fetchCompanyData(business_info_id: string | undefined) {
@@ -30,6 +30,7 @@ export const fetchCompanyAddress = async (address_uuid: string) => {
     const response = await api.get(`/company-address?address_id=${address_uuid}`)
 
     const result = response.data
+    console.log('dados atualizados')
     return result
   } catch (err: any) {
     console.log("erro: ", err)
@@ -207,16 +208,93 @@ export const deleteUser = async (formData: FormData) => {
   revalidatePath('/dashboard/users')
 }
 
-export const fetchCompanyUserDetails = async() => {
+export const fetchCompanyUserDetails = async () => {
   const api = await setupAPIClient()
   const session = await auth()
-  try{
-    if(session) {
+  try {
+    if (session) {
       const userData = await api.get("/company-user-details")
 
       return userData.data
     }
-  }catch(err: any){
+  } catch (err: any) {
     console.log(err)
+  }
+}
+
+export const updateCompanyUserDetails = async (formData: FormData) => {
+  const api = await setupAPIClient()
+  const session = await auth()
+
+  let { name, user_name, document, new_password, confirm_password } = Object.fromEntries(formData)
+ 
+  if (session) {
+
+    if (session.user.status === 'pending_password') {
+
+      if(session.user.document){
+        document = session.user.document
+      }
+
+      const result = userInfoSchemaFirstSignIn.safeParse({
+        name,
+        user_name,
+        document,
+        new_password,
+        confirm_password
+      })
+      if (!result.success) {
+        return { error: result.error.issues }
+      }
+
+     
+      try{
+
+        const response = await api.patch(`/company-user?user_id=${session.user.uuid}`, {
+          name: name,
+          user_name: user_name,
+          document: document,
+          password: new_password,
+          status:'active'
+        })
+        
+        return response.data
+      }catch(err: any){
+        if(err.response.data) return err.response.data
+
+        console.log("Erro ao atualizar dados do usuário: ", err)
+      }
+            
+    } else {
+      const result = userInfoSchema.safeParse({
+        name,
+        user_name,
+        document,
+        new_password,
+        confirm_password
+      })
+
+
+      if (!result.success) {
+        return { error: result.error.issues }
+      }
+      
+      try{
+        const response = await api.patch(`/company-user?user_id=${session.user.uuid}`, {
+          name: name,
+          user_name: user_name,
+          document: document,
+          password: new_password,
+        })    
+        console.log({response})
+        return response.data
+
+      }catch(err: any){
+        if(err.response.data) return err.response.data
+       console.log("Erro ao atualizar dados: ", err)
+       
+      }
+    }
+
   }
 }
