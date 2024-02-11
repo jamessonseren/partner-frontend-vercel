@@ -6,11 +6,7 @@ interface PrivateLayoutProps {
 }
 export default async function PrivateLayout({ children }: PrivateLayoutProps) {
 
-    // if(!session){
-    //     redirect('/')
-    // }
     return <>
         {children}
-        <ToastContainer autoClose={3000} />
     </>
 }

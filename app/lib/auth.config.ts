@@ -42,14 +42,9 @@ export const authConfig = {
                
                 return NextResponse.redirect(new URL('/dashboard/settings/user', nextUrl));
             }
-           
-                       
+            
           
             return true
-
-                   
-
-
         },
 
     }
