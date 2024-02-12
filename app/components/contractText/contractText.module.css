@@ -1,0 +1,82 @@
+.container {
+    display: flex;
+    gap: 2rem;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    position: relative;
+}
+.contract{
+    color: #000;
+    background-color: #ffffff;
+    padding: 1rem;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.container > h1 {
+    text-align: center;
+}
+.contract p{
+    text-align: justify;
+}
+
+.top{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.conceptsText{
+    padding: 0 1rem;
+    
+}
+
+.contractPlace{
+    display: flex;
+    gap: .5rem;
+}
+.contractPlace > p{
+    border-bottom: 1px solid black;
+}
+.contractAgreement{
+    display: flex;
+    justify-content: space-between;
+}
+
+.confirmContract{
+    display: flex;
+    align-items: center;
+    gap: .5rem; 
+}
+
+.confirmButton > button {
+    background-color: var(--bg);
+    color: white;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.8s ease;
+}
+
+.confirmButton > button:active,
+.confirmButton > button:focus {
+    background-color: var(--bgSoft); /* Mudar para uma tonalidade mais escura quando clicado ou focado */
+}
+
+.invalid{
+    pointer-events: none;
+    filter: brightness(.1);
+    filter: blur(.8px);
+}
+@media screen and (max-width:450px){
+    .contractAgreement{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .confirmContract > label{
+        text-align: justify;
+    }
+}

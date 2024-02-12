@@ -11,8 +11,6 @@ export default async function Company() {
 
     const companyData = await fetchCompanyData(session?.user.business_info_id)
 
-   
-
 
 
     return (

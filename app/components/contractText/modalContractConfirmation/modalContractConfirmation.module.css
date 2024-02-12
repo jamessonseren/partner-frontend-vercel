@@ -1,0 +1,63 @@
+.modal {
+    width: 500px;
+    height: 300px;
+    background-color: var(--bgSoft);
+    position: fixed; /* Alterei de 'absolute' para 'fixed' para garantir que ele permaneça no centro mesmo com rolagem na página */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+    padding: 1rem;
+    opacity: 0;
+    z-index: 99;
+}
+
+.form{
+    display: flex;
+    height: 100%;
+    padding: 1rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.form > input{
+    outline: none;
+    padding: 1rem;
+}
+
+.form > button{
+    background-color: var(--bg);
+    color: white;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.8s ease;
+}
+
+.isVisible{
+    opacity: 1;
+}
+
+
+
+.closeButton{
+    position: absolute;
+    text-align: right;
+    width: auto;
+    display: inline;
+    right: 1%;
+    top: 2%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.closeButton:hover{
+    font-size: 1.8rem;
+}
+
+
