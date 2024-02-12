@@ -39,7 +39,7 @@ export const {
                             Authorization: `Bearer ${user.token}`
                         };
                         
-                        // Requisição e tratamento dos dados utilizando async-await
+                        //http://localhost:3333
                         try {
                             const userDataResponse = await fetch(`https://api-correct-vercel.vercel.app/company-user-details`, {
                                 method: 'GET',
