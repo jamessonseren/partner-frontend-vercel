@@ -4,6 +4,7 @@ import { useState } from 'react'
 import styles from '../../components/contractText/contractText.module.css'
 import { toast } from 'react-toastify'
 import { ModalContractConfirmation } from './modalContractConfirmation/modalContractConfirmation'
+import { useRef } from 'react';
 
 type ContractType = {
     admin_name: string | null
@@ -24,13 +25,16 @@ const ContractComponent = (props: ContractType) => {
     const [confirmContract, setConfirmContract] = useState(false)
     const [isVisible, setIsVisible] = useState(false)
 
+    const contractRef = useRef<HTMLDivElement>(null);
+
+
 
     function signContract() {
-        if(!confirmContract){
+        if (!confirmContract) {
             toast.warn("Você deve confirmar que leu e concorda com o contrato")
             return
         }
-       setIsVisible(!isVisible)     
+        setIsVisible(!isVisible)
     }
 
     const currentDate = new Date();
@@ -45,13 +49,36 @@ const ContractComponent = (props: ContractType) => {
     const adjustedDay = addLeadingZero(day);
     const adjustedMonth = addLeadingZero(month);
 
+
+    function createPDF() {
+        const element = contractRef.current;
+
+
+        if (element) {
+            const elementHtml = element.innerHTML
+            const signed = `<h2>ASSINADO DIGITALMENTE POR: ${props.admin_name}</h2>`
+            const win = window.open('','', 'height=700, width=700')
+            
+            win?.document.write('<html><head>')
+            win?.document.write('<title>Contrato SysCorrect</title>')
+            win?.document.write('</head><body>')
+            win?.document.write(elementHtml)
+            win?.document.write(signed)
+            win?.document.write()
+            win?.document.write('</body></html>')
+            win?.print()
+            
+        }
+
+
+    }
     return (
-        <>
-            <ModalContractConfirmation visible={isVisible} onClose={signContract}/>
-            <div className={`${styles.contract} ${isVisible ? styles.invalid : ''}`}>
+        <div className={styles.container}>
+            <ModalContractConfirmation visible={isVisible} onClose={signContract} />
+            <div className={`${styles.contract} ${isVisible ? styles.invalid : ''}`} ref={contractRef}>
                 <h1>CONTRATO DE PRESTAÇÃO DE SERVIÇOS DE SISTEMA DE MEIOS DE PAGAMENTOS E CONVÊNIOS</h1>
                 <br />
-                <div className={styles.top}>
+                <div className={styles.top} style={{display:'flex', justifyContent:'space-between'}}>
                     <div>
                         Bandeira: <strong>CORRECT</strong>
                     </div>
@@ -76,7 +103,7 @@ const ContractComponent = (props: ContractType) => {
                 <br />
                 <h3><strong>A. Conceitos:</strong></h3>
                 <br />
-                <p className={styles.conceptsText}>
+                <p>
                     <strong>Mega APP Correct:</strong><br />
                     Aplicativo com conceito inovador tecnológico, que permite qualquer Usuário ter na palma de sua mão, multibenefícios e multivantagens, além de permitir operações financeiras e de controle.
                     <br />
@@ -228,6 +255,7 @@ const ContractComponent = (props: ContractType) => {
 
                 <br />
                 <br />
+                
                 <h3>CLÁUSULA QUARTA – Das Condições Gerais</h3>
                 <br />
                 <p>
@@ -244,34 +272,33 @@ const ContractComponent = (props: ContractType) => {
                     <br />
                 </p>
 
-                <form action="">
-                    <div className={styles.contractPlace}>
-                        <p><strong>{props.city}</strong></p>
-                        <label><strong>/</strong></label>
-                        <p><strong>{adjustedDay}</strong></p>
-                        <label><strong>/</strong></label>
-                        <p><strong>{adjustedMonth}</strong></p>
-                        <label><strong>/</strong></label>
-                        <p><strong>{year}</strong></p>
+                <div style={{display:'flex', gap:'.5rem'}}>
+                    <p style={{borderBottom: '1px solid black'}}><strong>{props.city}</strong></p>
+                    <p><strong>/</strong></p>
+                    <p style={{borderBottom: '1px solid black'}}><strong>{adjustedDay}</strong></p>
+                    <p><strong>/</strong></p>
+                    <p style={{borderBottom: '1px solid black'}}><strong>{adjustedMonth}</strong></p>
+                    <p><strong>/</strong></p>
+                    <p style={{borderBottom: '1px solid black'}}><strong>{year}</strong></p>
 
-                        {/* <input type="text" disabled defaultValue={props.city} /> /
-                    <input type="text" disabled defaultValue={day} /> /
-                    <input type="text" disabled defaultValue={month} /> /
-                    <input type="text" disabled defaultValue={year} /> */}
-                    </div>
-                    <div className={styles.contractAgreement}>
-                        <div className={styles.confirmContract}>
-                            <input type="checkbox" value={confirmContract ? 'true' : 'false'} onChange={(e) => setConfirmContract(e.target.checked)} />
-                            <label htmlFor="agreement"><strong>Li e concordo com o contrato estabelecido</strong></label>
-                        </div>
-                        <div className={styles.confirmButton} onClick={signContract}>
-                            <button type='button'>Assinar</button>
-                        </div>
-                    </div>
-                </form>
+
+                </div>
+
 
             </div>
-        </>
+            <div className={styles.contractAgreement} >
+                <div className={styles.confirmContract}>
+                    <input type="checkbox" value={confirmContract ? 'true' : 'false'} onChange={(e) => setConfirmContract(e.target.checked)} />
+                    <label htmlFor="agreement"><strong>Li e concordo com o contrato estabelecido</strong></label>
+                </div>
+                <div className={styles.confirmButton} onClick={signContract}>
+                    <button type='button'>Assinar</button>
+                </div>
+                <div className={styles.confirmButton} onClick={createPDF}>
+                    <button type='button'>Salvar Contrato</button>
+                </div>
+            </div>
+        </div>
 
     )
 }
