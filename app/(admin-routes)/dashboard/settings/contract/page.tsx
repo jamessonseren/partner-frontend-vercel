@@ -8,6 +8,7 @@ export default async function ContractSettings() {
 
     const session = await auth()
 
+    
     const businessInfo = await fetchCompanyData(session?.user.business_info_id)
     return (
         <main className={styles.container}>

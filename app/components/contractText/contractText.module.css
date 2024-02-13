@@ -5,13 +5,17 @@
     border-radius: 10px;
     margin-top: 20px;
     position: relative;
+    flex-direction: column;
 }
+
 .contract{
     color: #000;
     background-color: #ffffff;
-    padding: 1rem;
-    max-height: 80vh;
+    padding: 1rem 1rem 4rem 1rem;
+   /*max-height: 80vh;*/
+    height: 842;
     overflow-y: auto;
+    width: 595;
 }
 
 .container > h1 {
@@ -32,13 +36,13 @@
     
 }
 
-.contractPlace{
+/* .contractPlace{
     display: flex;
     gap: .5rem;
 }
 .contractPlace > p{
     border-bottom: 1px solid black;
-}
+} */
 .contractAgreement{
     display: flex;
     justify-content: space-between;
@@ -51,8 +55,8 @@
 }
 
 .confirmButton > button {
-    background-color: var(--bg);
-    color: white;
+    background-color: #fff;
+    color: #000;
     padding: 1rem 1.5rem;
     cursor: pointer;
     transition: background-color 0.8s ease;

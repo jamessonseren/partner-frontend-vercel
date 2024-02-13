@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import styles from './modalContractConfirmation.module.css'
 import { IoCloseCircle } from "react-icons/io5";
 
