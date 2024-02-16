@@ -8,6 +8,7 @@ import { authConfig } from "./auth.config";
 export const {
     handlers: { GET, POST },
     auth,
+    update,
     signIn,
     signOut,
 } = NextAuth({
@@ -40,8 +41,9 @@ export const {
                         };
                         
                         //http://localhost:3333
+                        //https://api-correct-vercel.vercel.app
                         try {
-                            const userDataResponse = await fetch(`https://api-correct-vercel.vercel.app/company-user-details`, {
+                            const userDataResponse = await fetch(`http://localhost:3333/company-user-details`, {
                                 method: 'GET',
                                 headers: headers
                             });
@@ -60,7 +62,9 @@ export const {
                             user.function = userData.function;
                             user.permissions = userData.permissions;
                             user.status = userData.status;
-            
+                            user.contract_info_uuid = userData.BusinessInfo.contract_info_uuid
+                            
+                            console.log({user})
                             return user;
                         } catch (error) {
                             console.error('Error fetching user data:', error);

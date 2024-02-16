@@ -4,7 +4,6 @@ import { auth } from '@/app/lib/auth'
 
 export default async function UserSettings() {
     const session = await auth();
-
         // Verificar se há uma sessão válida antes de renderizar o componente UserInfo
     if (session) {
         return (

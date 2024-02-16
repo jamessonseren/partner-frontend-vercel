@@ -5,8 +5,8 @@ import { AuthTokenError } from "./errors/AuthTokenError";
 import { cookies } from 'next/headers'
 import { auth } from "../lib/auth";
 
-const baseURL = 'https://api-correct-vercel.vercel.app/'
-//const baseURL = 'http://localhost:3333'
+//const baseURL = 'https://api-correct-vercel.vercel.app/'
+const baseURL = 'http://localhost:3333'
 
 export async function setupAPIClient(ctx = {}) {
     const cookieStore = cookies()
