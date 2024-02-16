@@ -10,12 +10,24 @@ export const authConfig = {
         signIn: '/'
     },
     callbacks: {
-        jwt: async ({ token, user }) => {
-            user && (token.user = user)
+        jwt: async ({ token, user, trigger, session,account, profile }) => {
+            if(trigger === "signIn"){
+                console.log("caiu em signIng")
+                user && (token.user = user)
+    
+                return token
+    
+            }
+            if(trigger === "update" && session){
+                token.user = session.user
+                return {...token, ...session.user}
+            }
+            // user && (token.user = user)
+            // console.log("user jwt: ", user)
 
             return token
         },
-        session: async ({ session, token }: any) => {
+        session: async ({ session, token}: any) => {
             session.user = token.user
 
 

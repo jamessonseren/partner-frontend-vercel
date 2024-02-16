@@ -5,7 +5,7 @@ import { dataSchemaZod } from "../components/companyDataForm/validationDataSchem
 import { setupAPIClient } from "../services/api"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
-import { auth } from "./auth"
+import { auth, update } from "./auth"
 import { userInfoSchema, userInfoSchemaFirstSignIn } from "../components/userInfo/userInfoValidationSchema"
 
 
@@ -18,7 +18,7 @@ export async function fetchCompanyData(business_info_id: string | undefined) {
     const result = response.data
     return result
   } catch (err: any) {
-    if(err.response.data) return err.response.data
+    if (err.response.data) return err.response.data
 
     console.log("erro: ", err)
     // return err.response.data.error
@@ -35,7 +35,7 @@ export const fetchCompanyAddress = async (address_uuid: string) => {
     console.log('dados atualizados')
     return result
   } catch (err: any) {
-    if(err.response.data) return err.response.data
+    if (err.response.data) return err.response.data
     console.log("erro: ", err)
     // return err.response.data.error
   }
@@ -109,7 +109,7 @@ export const updateData = async (formData: FormData) => {
       phone_2
     })
   } catch (err: any) {
-    if(err.response.data) return err.response.data
+    if (err.response.data) return err.response.data
     console.log("Unable to update data", err)
 
   }
@@ -127,7 +127,7 @@ export const fetchSingleUser = async (user_uuid: string) => {
 
     return response.data
   } catch (err: any) {
-    if(err.response.data) return err.response.data
+    if (err.response.data) return err.response.data
     console.log({ err });
   }
 };
@@ -147,7 +147,7 @@ export const fetchCompanyUsers = async (q: string, page: any, business_info_uuid
 
     return { count: users.length, users }
   } catch (err: any) {
-    if(err.response.data) return err.response.data
+    if (err.response.data) return err.response.data
 
     console.log({ err });
   }
@@ -169,7 +169,7 @@ export const addUser = async (formData: FormData) => {
 
 
   } catch (err: any) {
-    if(err.response.data) return err.response.data
+    if (err.response.data) return err.response.data
 
     console.log("Erro ao criar usuário", err)
   }
@@ -193,7 +193,7 @@ export const editUser = async (formData: FormData) => {
     })
 
   } catch (err: any) {
-    if(err.response.data) return err.response.data
+    if (err.response.data) return err.response.data
 
     console.log("Erro ao editar usuário: ", err)
   }
@@ -227,7 +227,7 @@ export const fetchCompanyUserDetails = async () => {
       return userData.data
     }
   } catch (err: any) {
-    if(err.response.data) return err.response.data
+    if (err.response.data) return err.response.data
 
     console.log(err)
   }
@@ -238,12 +238,12 @@ export const updateCompanyUserDetails = async (formData: FormData) => {
   const session = await auth()
 
   let { name, user_name, document, new_password, confirm_password } = Object.fromEntries(formData)
- 
+
   if (session) {
 
     if (session.user.status === 'pending_password') {
 
-      if(session.user.document){
+      if (session.user.document) {
         document = session.user.document
       }
 
@@ -258,24 +258,26 @@ export const updateCompanyUserDetails = async (formData: FormData) => {
         return { error: result.error.issues }
       }
 
-     
-      try{
+
+      try {
 
         const response = await api.patch(`/company-user?user_id=${session.user.uuid}`, {
           name: name,
           user_name: user_name,
           document: document,
           password: new_password,
-          status:'active'
+          status: 'active'
         })
-        
-        return response.data
-      }catch(err: any){
-        if(err.response.data) return err.response.data
+
+
+        return { status: response.status, data: response.data }
+
+      } catch (err: any) {
+        if (err.response.data) return err.response.data
 
         console.log("Erro ao atualizar dados do usuário: ", err)
       }
-            
+
     } else {
       const result = userInfoSchema.safeParse({
         name,
@@ -289,23 +291,64 @@ export const updateCompanyUserDetails = async (formData: FormData) => {
       if (!result.success) {
         return { error: result.error.issues }
       }
-      
-      try{
+
+      try {
         const response = await api.patch(`/company-user?user_id=${session.user.uuid}`, {
           name: name,
           user_name: user_name,
           document: document,
           password: new_password,
-        })    
-        console.log({response})
-        return response.data
+        })
 
-      }catch(err: any){
-        if(err.response.data) return err.response.data
-       console.log("Erro ao atualizar dados: ", err)
-       
+
+        return { status: response.status, data: response.data }
+
+      } catch (err: any) {
+        if (err.response.data) return err.response.data
+        console.log("Erro ao atualizar dados: ", err)
+
       }
     }
 
   }
+}
+
+export const createContract = async (formData: FormData) => {
+  const api = await setupAPIClient()
+  const { name, content, version, password } = Object.fromEntries(formData)
+
+  try {
+    const response = await api.post('/company-contract', {
+      name,
+      content,
+      version,
+      password
+    })
+
+    console.log({response})
+
+    return { status: response.status, data: response.data }
+
+  } catch (err: any) {
+
+    if (err.response.data) return err.response.data
+    console.log("Erro ao atualizar dados: ", err)
+
+  }
+
+  revalidatePath("/dashboard/settings/contract")
+
+}
+
+
+
+export const updateSession = async () => {
+  const session = await auth()
+  await update({
+    ...session,
+    user: {
+      ...session?.user,
+      status: 'active'
+    }
+  })
 }

@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react'
 import styles from './userInfo.module.css'
 import { ZodIssue, z } from 'zod'
 import { IMaskInput } from 'react-imask'
-import { updateCompanyUserDetails } from '@/app/lib/actions'
+import { updateCompanyUserDetails, updateSession } from '@/app/lib/actions'
 import { toast } from 'react-toastify'
 import { signOut, useSession } from 'next-auth/react'
+import { auth, update } from '@/app/lib/auth'
+import { useRouter } from 'next/navigation'
 
 export type UserInfoProps = {
     uuid: string,
@@ -29,87 +31,97 @@ type FormErrors = {
 
 
 export default function UserInfo(props: UserInfoProps) {
-    
 
     const [errorsMessage, setErrorsMessage] = useState<FormErrors>(null);
     const [passwordFieldIsVisible, setPasswordIsVisible] = useState(false)
 
+    
+
     const handleSubmitFirstSignIn = async (formData: FormData) => {
-       
-            const response = await updateCompanyUserDetails(formData)
 
-            if(response.error === 'Admin must update password'){
-                toast.warn("Por favor, altere a senha")
-                return
-            }
-         
-            if(response.error === 'Document is required'){
-                toast.warn("Por favor, atualize o seu CPF")
-                return
-            }
-            
-            if (response?.error) {
-                const formattedErrors: FormErrors = {};
+        const response = await updateCompanyUserDetails(formData)
 
-                response.error.forEach((issue: ZodIssue) => {
-                    const fieldName = issue.path[0];
-                    const errorMessage = issue.message;
+        if(response.status === 200){
+            toast.success("Dados atualizados com sucesso")
+            await signOut()
+            return
+    
+        }
+        if (response.error === 'Admin must update password') {
+            toast.warn("Por favor, altere a senha")
+            return
+        }
 
-                    if (!formattedErrors[fieldName]) {
-                        formattedErrors[fieldName] = [];
-                    }
+        if (response.error === 'Document is required') {
+            toast.warn("Por favor, atualize o seu CPF")
+            return
+        }
 
-                    formattedErrors[fieldName]?.push(errorMessage);
-                });
+        if(response.status !== '200'){
+            toast.error("Algo de errado. Tente novamente!")
+        }
 
-                setErrorsMessage(formattedErrors);
+        if (response?.error) {
+            const formattedErrors: FormErrors = {};
 
-                return
+            response.error.forEach((issue: ZodIssue) => {
+                const fieldName = issue.path[0];
+                const errorMessage = issue.message;
 
-            }
-           toast.success("Dados atualizados com sucesso")
-           await signOut()
+                if (!formattedErrors[fieldName]) {
+                    formattedErrors[fieldName] = [];
+                }
 
-        
+                formattedErrors[fieldName]?.push(errorMessage);
+            });
+
+            setErrorsMessage(formattedErrors);
+
+            return
+
+        }
 
     }
 
     const handleSubmitRegularUpdates = async (formData: FormData) => {
 
+        const response = await updateCompanyUserDetails(formData)
 
-
-            const response = await updateCompanyUserDetails(formData)
-
-            
-            if(response.error === 'User name already registered'){
-                toast.warn("Nome de usuário indisponível")
-                return
-            }
-
-            if (response?.error) {
-                const formattedErrors: FormErrors = {};
-
-                response.error.forEach((issue: ZodIssue) => {
-                    const fieldName = issue.path[0];
-                    const errorMessage = issue.message;
-
-                    if (!formattedErrors[fieldName]) {
-                        formattedErrors[fieldName] = [];
-                    }
-
-                    formattedErrors[fieldName]?.push(errorMessage);
-                });
-
-                setErrorsMessage(formattedErrors);
-
-                return
-
-            }
-
-
+        if(response.status === 200){
             toast.success("Dados atualizados com sucesso")
             await signOut()
+            return
+    
+        }
 
+        if (response.error === 'User name already registered') {
+            toast.warn("Nome de usuário indisponível")
+            return
+        }
+
+        if(response.status !== 200){
+            toast.error("Algo deu Errado. Tente novamente")
+            return
+        }
+        if (response?.error) {
+            const formattedErrors: FormErrors = {};
+
+            response.error.forEach((issue: ZodIssue) => {
+                const fieldName = issue.path[0];
+                const errorMessage = issue.message;
+
+                if (!formattedErrors[fieldName]) {
+                    formattedErrors[fieldName] = [];
+                }
+
+                formattedErrors[fieldName]?.push(errorMessage);
+            });
+
+            setErrorsMessage(formattedErrors);
+
+            return
+
+        }
 
     }
 
@@ -118,7 +130,7 @@ export default function UserInfo(props: UserInfoProps) {
         if (props.status === "pending_password") {
             setPasswordIsVisible(true)
         }
-    })
+    },[])
 
     function editPassword() {
         if (!passwordFieldIsVisible) {
@@ -133,6 +145,7 @@ export default function UserInfo(props: UserInfoProps) {
 
     return (
         <div className={styles.formBox}>
+                     
             {props.status === "pending_password" && (
                 <form className={styles.form} action={handleSubmitFirstSignIn}>
 
