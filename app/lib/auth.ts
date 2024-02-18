@@ -62,9 +62,8 @@ export const {
                             user.function = userData.function;
                             user.permissions = userData.permissions;
                             user.status = userData.status;
-                            user.contract_info_uuid = userData.BusinessInfo.contract_info_uuid
+                            user.business_status = userData.BusinessInfo.status
                             
-                            console.log({user})
                             return user;
                         } catch (error) {
                             console.error('Error fetching user data:', error);

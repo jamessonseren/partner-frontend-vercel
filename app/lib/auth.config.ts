@@ -40,6 +40,7 @@ export const authConfig = {
             const isOnLoginPage = nextUrl.pathname.startsWith("/");
             const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
             const userSettingsPage = nextUrl.pathname.startsWith("/dashboard/settings/user")
+            const isOnContractPAge = nextUrl.pathname.startsWith("/dashboard/settings/contract")
             const financeUser = nextUrl.pathname.startsWith("/dashboard/finances")
             const salesUser = nextUrl.pathname.startsWith("/sales")
             const marketing = nextUrl.pathname.startsWith("/marketing")
@@ -50,11 +51,13 @@ export const authConfig = {
                     
                     return NextResponse.redirect(new URL("/dashboard", nextUrl));              
                 }
-            if ((isLoggedIn && session?.status === 'pending_password') && !userSettingsPage) {
-               
+            if ((isLoggedIn && session?.status === 'pending_password') && !userSettingsPage) {             
                 return NextResponse.redirect(new URL('/dashboard/settings/user', nextUrl));
             }
             
+            if((isLoggedIn && session?.business_status === "pending_contract") && !isOnContractPAge){
+                return NextResponse.redirect(new URL('/dashboard/settings/contract', nextUrl));
+            }
           
             return true
         },

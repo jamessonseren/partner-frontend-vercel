@@ -15,7 +15,7 @@ declare module 'next-auth' {
             function: string | null
             token: string
             status: string
-            contract_info_uuid: string | null
+            business_status: string
 
         }
     }
