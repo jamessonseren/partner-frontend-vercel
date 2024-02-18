@@ -53,6 +53,12 @@
     display: flex;
     align-items: center;
     gap: .5rem;
+    cursor: pointer;
+}
+
+.confirmContract > label:hover{
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .confirmButton>button {

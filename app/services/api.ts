@@ -15,7 +15,6 @@ export async function setupAPIClient(ctx = {}) {
 
     const api = axios.create({
         baseURL: baseURL,
-        //baseURL: 'https://vercel-correct-backend.vercel.app',
         headers: {
             Authorization: `Bearer ${session?.user.token}`
         }

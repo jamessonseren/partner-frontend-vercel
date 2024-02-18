@@ -6,6 +6,7 @@ import { setupAPIClient } from "../services/api"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { auth, update } from "./auth"
+import { signOut } from "next-auth/react"
 import { userInfoSchema, userInfoSchemaFirstSignIn } from "../components/userInfo/userInfoValidationSchema"
 
 
@@ -315,31 +316,45 @@ export const updateCompanyUserDetails = async (formData: FormData) => {
 
 export const createContract = async (formData: FormData) => {
   const api = await setupAPIClient()
-  const { name, content, version, password } = Object.fromEntries(formData)
+  const { name, content, version, password, business_info_uuid } = Object.fromEntries(formData)
 
   try {
     const response = await api.post('/company-contract', {
       name,
       content,
       version,
-      password
+      password,
+      business_info_uuid
     })
 
-    console.log({response})
 
     return { status: response.status, data: response.data }
 
   } catch (err: any) {
 
-    if (err.response.data) return err.response.data
     console.log("Erro ao atualizar dados: ", err)
+    if (err.response.data) return err.response.data
 
   }
 
-  revalidatePath("/dashboard/settings/contract")
 
 }
 
+
+export const fetchContracts = async (business_info_uuid: string) => {
+  const api = await setupAPIClient()
+
+  try{
+    const response = await api.get(`company-contracts?business_info_uuid=${business_info_uuid}`)
+
+    return { status: response.status, data: response.data }
+
+  }catch(err: any){
+    console.log("Error fetching contracts: ", err)
+    if (err.response.data) return err.response.data
+  }
+
+}
 
 
 export const updateSession = async () => {
@@ -352,3 +367,4 @@ export const updateSession = async () => {
     }
   })
 }
+
