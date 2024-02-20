@@ -35,17 +35,17 @@ export default function UserInfo(props: UserInfoProps) {
     const [errorsMessage, setErrorsMessage] = useState<FormErrors>(null);
     const [passwordFieldIsVisible, setPasswordIsVisible] = useState(false)
 
-    
+
 
     const handleSubmitFirstSignIn = async (formData: FormData) => {
 
         const response = await updateCompanyUserDetails(formData)
 
-        if(response.status === 200){
+        if (response.status === 200) {
             toast.success("Dados atualizados com sucesso")
             await signOut()
             return
-    
+
         }
         if (response.error === 'Admin must update password') {
             toast.warn("Por favor, altere a senha")
@@ -57,7 +57,7 @@ export default function UserInfo(props: UserInfoProps) {
             return
         }
 
-        if(response.status !== '200'){
+        if (response.status !== '200') {
             toast.error("Algo de errado. Tente novamente!")
         }
 
@@ -87,11 +87,11 @@ export default function UserInfo(props: UserInfoProps) {
 
         const response = await updateCompanyUserDetails(formData)
 
-        if(response.status === 200){
+        if (response.status === 200) {
             toast.success("Dados atualizados com sucesso")
             await signOut()
             return
-    
+
         }
 
         if (response.error === 'User name already registered') {
@@ -99,7 +99,7 @@ export default function UserInfo(props: UserInfoProps) {
             return
         }
 
-        if(response.status !== 200){
+        if (response.status !== 200) {
             toast.error("Algo deu Errado. Tente novamente")
             return
         }
@@ -130,7 +130,7 @@ export default function UserInfo(props: UserInfoProps) {
         if (props.status === "pending_password") {
             setPasswordIsVisible(true)
         }
-    },[])
+    }, [])
 
     function editPassword() {
         if (!passwordFieldIsVisible) {
@@ -145,11 +145,11 @@ export default function UserInfo(props: UserInfoProps) {
 
     return (
         <div className={styles.formBox}>
-                     
+
             {props.status === "pending_password" && (
                 <form className={styles.form} action={handleSubmitFirstSignIn}>
 
-                    <input type="hidden" name='data_uuid' value={props.uuid} />
+                    <input className={styles.inputForm} type="hidden" name='data_uuid' value={props.uuid} />
                     <div className={styles.grid2}>
                         <div className={styles.inputBox}>
                             <label htmlFor="name">Nome</label>

@@ -14,13 +14,14 @@
 .form input,
 .form textarea,
 .form select {
-    padding: 30px;
+    padding: 10px;
     background-color: var(--bg);
     color: var(--text);
     border: 2px solid #2e374a;
     border-radius: 5px;
     margin-bottom: 30px;
     width: 100%;
+    margin-top: 5px;
 }
 
 .form input::placeholder {
@@ -31,14 +32,27 @@
     width: 100%;
 }
 
+.inputBox label {
+    margin-bottom: 5px;
+}
+
 .form button {
-    width: 100%;
-    padding: 30px;
+    width: 60%;
+    padding: 15px;
     background-color: teal;
     color: var(--text);
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
+    margin: 1rem auto;
     cursor: pointer;
+    transition: 1s;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.form button:hover {
+    background-color: #01adad;
+    box-shadow: 0px 1px 5px #dbdbdb;
 }
 
 .grid1 {
@@ -47,6 +61,7 @@
     width: 100%;
     gap: 1rem;
 }
+
 .grid2 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -54,26 +69,33 @@
     gap: 1rem;
 }
 
-.errorMessage{
+.errorMessage {
     color: red;
 
 }
 
-.passwordButton{
+.passwordButton {
     cursor: pointer;
     margin-bottom: 1rem;
     transition: all .8s;
+    width: 100%;
 }
 
-.passwordButton:hover{
+.passwordButton:hover {
     text-decoration: underline;
 }
 
-@media screen and (max-width: 600px){
-    .form{
+@media screen and (max-width: 600px) {
+    .container {
+        width: 300px;
+    }
+
+    .form {
         flex-direction: column;
     }
-    .grid1, .grid2{
+
+    .grid1,
+    .grid2 {
         display: flex;
         flex-direction: column;
     }
