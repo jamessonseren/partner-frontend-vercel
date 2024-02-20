@@ -10,24 +10,24 @@ export const authConfig = {
         signIn: '/'
     },
     callbacks: {
-        jwt: async ({ token, user, trigger, session,account, profile }) => {
-            if(trigger === "signIn"){
+        jwt: async ({ token, user, trigger, session, account, profile }) => {
+            if (trigger === "signIn") {
                 console.log("caiu em signIng")
                 user && (token.user = user)
-    
+
                 return token
-    
+
             }
-            if(trigger === "update" && session){
+            if (trigger === "update" && session) {
                 token.user = session.user
-                return {...token, ...session.user}
+                return { ...token, ...session.user }
             }
             // user && (token.user = user)
             // console.log("user jwt: ", user)
 
             return token
         },
-        session: async ({ session, token}: any) => {
+        session: async ({ session, token }: any) => {
             session.user = token.user
 
 
@@ -45,20 +45,20 @@ export const authConfig = {
             const salesUser = nextUrl.pathname.startsWith("/sales")
             const marketing = nextUrl.pathname.startsWith("/marketing")
 
-            if(!isLoggedIn) return false
+            if (!isLoggedIn) return false
 
             if (isOnLoginPage && isLoggedIn && !isOnDashboard) {
-                    
-                    return NextResponse.redirect(new URL("/dashboard", nextUrl));              
-                }
-            if ((isLoggedIn && session?.status === 'pending_password') && !userSettingsPage) {             
+
+                return NextResponse.redirect(new URL("/dashboard", nextUrl));
+            }
+            if ((isLoggedIn && session?.status === 'pending_password') && !userSettingsPage) {
                 return NextResponse.redirect(new URL('/dashboard/settings/user', nextUrl));
             }
-            
-            if((isLoggedIn && session?.business_status === "pending_contract") && !isOnContractPAge){
+
+            if ((isLoggedIn && session?.business_status === "pending_contract") && !isOnContractPAge) {
                 return NextResponse.redirect(new URL('/dashboard/settings/contract', nextUrl));
             }
-          
+
             return true
         },
 
