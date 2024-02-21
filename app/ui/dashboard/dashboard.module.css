@@ -1,6 +1,7 @@
 .container {
     display: flex;
-    width: 98vw;
+    width: 100vw;
+    min-width: 100vw;
     height: 100%;
     overflow: hidden;
 }
@@ -12,11 +13,21 @@
 
 .menu {
     flex: 1;
-    background-color: var(--bgSoft);
     margin-right: 2rem;
     overflow-x: hidden;
+    width: 200px;
+    min-width: 200px;
 }
 
+.content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex: 4;
+    padding: 2rem;
+    margin-left: 50px;
+}
 
 @media (max-width: 780px) {
     .menu {
@@ -65,12 +76,10 @@
     .activeSidebar:checked~.menuButton {
         left: 300px;
     }
-}
 
-.content {
-    flex: 4;
-    padding: 2rem;
-    width: 75vw;
+    .content {
+        margin-left: 0;
+    }
 }
 
 .wrapper {

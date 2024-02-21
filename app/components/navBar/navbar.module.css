@@ -1,48 +1,57 @@
-.container{
+.container {
     padding: 1rem;
     border-radius: 10px;
     background-color: var(--bgSoft);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
+    min-width: 350px;
     position: relative;
+
 }
 
-.title{
+.title {
     color: var(--textSoft);
     font-weight: bold;
     text-transform: capitalize;
 }
 
-.menu{
+.menu {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-.search{
+.search {
     display: flex;
     align-items: center;
     gap: 10px;
     background-color: #2e374a;
     padding: 10px;
     border-radius: 10px;
+
 }
 
-.input{
+.input {
     background-color: transparent;
     border: none;
     color: var(--text);
+
+    min-width: 100px;
+
     outline: none;
+
 }
-.icons{
+
+.icons {
     display: flex;
     gap: 15px;
 }
-
 .notification{
     cursor: pointer;
 }
+
 
 .side{
     position: absolute;
@@ -64,6 +73,21 @@
     z-index: 99;
     cursor: pointer;
     font-size: 2rem;
-    
-    
+      
+}
+
+
+@media screen and (max-width: 425px) {
+    .search {
+        width: 150px;
+        gap: 5px;
+    }
+
+    .menu {
+        gap: 10px;
+    }
+
+.notification{
+    cursor: pointer;
+}
 }
