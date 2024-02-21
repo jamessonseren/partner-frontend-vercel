@@ -1,12 +1,13 @@
-import { ReactNode } from "react";
-import { ToastContainer } from "react-toastify";
+'use client'
+
+import { ReactNode, useEffect } from "react";
 
 interface PrivateLayoutProps {
     children: ReactNode
 }
 
 
-export default async function PrivateLayout({ children }: PrivateLayoutProps) {
+export default function PrivateLayout({ children }: PrivateLayoutProps) {
 
     return <>
         {children}
