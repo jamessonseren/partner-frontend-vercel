@@ -1,8 +1,13 @@
+'use client'
+
 import Image from "next/image";
 import styles from "./rightbar.module.css";
 import { MdPlayCircleFilled, MdReadMore } from "react-icons/md";
 
+
 const Rightbar = () => {
+
+
   return (
     <div className={styles.container}>
       <div className={styles.item}>
@@ -42,6 +47,64 @@ const Rightbar = () => {
             Learn
           </button>
         </div>
+        
+      </div>
+      <div className={styles.item}>
+        <div className={styles.text}>
+          <span className={styles.notification}>🚀 Coming Soon</span>
+          <h3 className={styles.title}>
+            New server actions are available, partial pre-rendering is coming
+            up!
+          </h3>
+          <span className={styles.subtitle}>Boost your productivity</span>
+          <p className={styles.desc}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Reprehenderit eius libero perspiciatis recusandae possimus.
+          </p>
+          <button className={styles.button}>
+            <MdReadMore />
+            Learn
+          </button>
+        </div>
+        
+      </div>
+      <div className={styles.item}>
+        <div className={styles.text}>
+          <span className={styles.notification}>🚀 Coming Soon</span>
+          <h3 className={styles.title}>
+            New server actions are available, partial pre-rendering is coming
+            up!
+          </h3>
+          <span className={styles.subtitle}>Boost your productivity</span>
+          <p className={styles.desc}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Reprehenderit eius libero perspiciatis recusandae possimus.
+          </p>
+          <button className={styles.button}>
+            <MdReadMore />
+            Learn
+          </button>
+        </div>
+        
+      </div>
+      <div className={styles.item}>
+        <div className={styles.text}>
+          <span className={styles.notification}>🚀 Coming Soon</span>
+          <h3 className={styles.title}>
+            New server actions are available, partial pre-rendering is coming
+            up!
+          </h3>
+          <span className={styles.subtitle}>Boost your productivity</span>
+          <p className={styles.desc}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Reprehenderit eius libero perspiciatis recusandae possimus.
+          </p>
+          <button className={styles.button}>
+            <MdReadMore />
+            Learn
+          </button>
+        </div>
+        
       </div>
     </div>
   );

@@ -6,7 +6,6 @@ import { setupAPIClient } from "../services/api"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { auth, update } from "./auth"
-import { signOut } from "next-auth/react"
 import { userInfoSchema, userInfoSchemaFirstSignIn } from "../components/userInfo/userInfoValidationSchema"
 
 
@@ -16,12 +15,11 @@ export async function fetchCompanyData(business_info_id: string | undefined) {
   try {
     const response = await api.get(`/business-info?business_info_uuid=${business_info_id}`)
 
-    const result = response.data
-    return result
+    return { status: response.status, data: response.data }
   } catch (err: any) {
+    // console.log("erro: ", err)
     if (err.response.data) return err.response.data
 
-    console.log("erro: ", err)
     // return err.response.data.error
   }
 }
@@ -32,12 +30,10 @@ export const fetchCompanyAddress = async (address_uuid: string) => {
   try {
     const response = await api.get(`/company-address?address_id=${address_uuid}`)
 
-    const result = response.data
-    console.log('dados atualizados')
-    return result
+    return { status: response.status, data: response.data }
   } catch (err: any) {
     if (err.response.data) return err.response.data
-    console.log("erro: ", err)
+    // console.log("erro: ", err)
     // return err.response.data.error
   }
 

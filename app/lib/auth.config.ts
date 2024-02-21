@@ -1,6 +1,4 @@
 import { NextAuthConfig } from "next-auth"
-import { auth } from "./auth";
-import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
 
 
@@ -10,7 +8,7 @@ export const authConfig = {
         signIn: '/'
     },
     callbacks: {
-        jwt: async ({ token, user, trigger, session,account, profile }) => {
+        jwt: async ({ token, user, trigger, session }) => {
             if(trigger === "signIn"){
                 console.log("caiu em signIng")
                 user && (token.user = user)
@@ -22,9 +20,6 @@ export const authConfig = {
                 token.user = session.user
                 return {...token, ...session.user}
             }
-            // user && (token.user = user)
-            // console.log("user jwt: ", user)
-
             return token
         },
         session: async ({ session, token}: any) => {
@@ -47,8 +42,7 @@ export const authConfig = {
 
             if(!isLoggedIn) return false
 
-            if (isOnLoginPage && isLoggedIn && !isOnDashboard) {
-                    
+            if (isOnLoginPage && isLoggedIn && !isOnDashboard) {  
                     return NextResponse.redirect(new URL("/dashboard", nextUrl));              
                 }
             if ((isLoggedIn && session?.status === 'pending_password') && !userSettingsPage) {             

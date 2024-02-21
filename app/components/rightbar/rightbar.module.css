@@ -1,5 +1,6 @@
 .container {
-    position: fixed;
+    width: 400px;
+    padding: 1rem;
   }
   
   .item {

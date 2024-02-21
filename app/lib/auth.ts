@@ -43,7 +43,7 @@ export const {
                         //http://localhost:3333
                         //https://api-correct-vercel.vercel.app
                         try {
-                            const userDataResponse = await fetch(`http://localhost:3333/company-user-details`, {
+                            const userDataResponse = await fetch(`https://api-correct-vercel.vercel.app/company-user-details`, {
                                 method: 'GET',
                                 headers: headers
                             });
