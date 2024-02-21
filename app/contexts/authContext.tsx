@@ -1,11 +1,14 @@
 'use client'
 
+import { signOut } from "next-auth/react"
+import router from "next/router"
 import { ReactNode } from "react"
 import { createContext, useContext, Dispatch, SetStateAction, useState } from "react"
 
 type AuthContextData = {
     user: UserProps
     setUser: Dispatch<SetStateAction<UserProps>>
+    logOut: () => void
 }
 
 type UserProps = {
@@ -17,6 +20,14 @@ type AuthProviderProps = {
 
 }
 
+export async function logOut() {
+    await signOut({
+        redirect: false
+    })
+    localStorage.removeItem('passwordAttempts');
+
+    router.replace('/')
+}
 
 const userDefaultValue:UserProps = {
     uuid: '',
@@ -28,7 +39,7 @@ export function AuthProvider({ children }: AuthProviderProps){
     const [user, setUser] = useState<UserProps>(userDefaultValue)
 
     return (
-        <AuthContext.Provider value={{user, setUser}}>
+        <AuthContext.Provider value={{user, setUser, logOut}}>
             {children}
         </AuthContext.Provider>
     )

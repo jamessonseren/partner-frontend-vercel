@@ -7,6 +7,8 @@
     justify-content: space-between;
     width: 100%;
     min-width: 350px;
+    position: relative;
+
 }
 
 .title {
@@ -35,13 +37,45 @@
     background-color: transparent;
     border: none;
     color: var(--text);
+
     min-width: 100px;
+
+    outline: none;
+
 }
 
 .icons {
     display: flex;
     gap: 15px;
 }
+.notification{
+    cursor: pointer;
+}
+
+
+.side{
+    position: absolute;
+    top: 100%;
+    right: -50%;
+    transition: right 0.5s ease, opacity 0.5s ease;
+    height: 80vh;
+    overflow-y: auto;
+}
+
+.showNotification {
+    right: 0;
+    opacity: 1;
+}
+
+.closeButton{
+    color: #fff;
+    position: relative;
+    z-index: 99;
+    cursor: pointer;
+    font-size: 2rem;
+      
+}
+
 
 @media screen and (max-width: 425px) {
     .search {
@@ -52,4 +86,8 @@
     .menu {
         gap: 10px;
     }
+
+.notification{
+    cursor: pointer;
+}
 }

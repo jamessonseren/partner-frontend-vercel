@@ -32,6 +32,7 @@ const Layout = async ({children}: LayoutProps) => {
                 {children}
                 <Footer />
             </div>
+           
         </div>
     )
 }
