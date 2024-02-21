@@ -4,6 +4,7 @@ import styles from '../../../../components/contractText/contractText.module.css'
 import { fetchCompanyData, fetchContracts } from '@/app/lib/actions';
 import ContractComponent from '@/app/components/contractText/contractText';
 import { ContractList } from '@/app/components/contractText/contractList/contractList';
+import { logOut } from '@/app/contexts/authContext';
 
 
 
@@ -54,8 +55,8 @@ export default async function ContractSettings() {
             <h2>Oops.. Algo deu erro. Atualize a página.</h2>
         </>)
 
+        
 
-
-
+        
     }
 }
