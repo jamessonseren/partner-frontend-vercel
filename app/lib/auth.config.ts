@@ -30,10 +30,11 @@ export const authConfig = {
 
             return session
         },
-        authorized: ({ auth, request: { nextUrl } }) => {
+        authorized: async ({ auth, request: { nextUrl } }) => {
             const isLoggedIn = !!auth?.user;
             const session = auth?.user
 
+            
             const isOnLoginPage = nextUrl.pathname.startsWith("/");
             const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
             const userSettingsPage = nextUrl.pathname.startsWith("/dashboard/settings/user")
@@ -62,3 +63,7 @@ export const authConfig = {
 
     }
 } satisfies NextAuthConfig;
+
+const baseURL = 'https://api-correct-vercel.vercel.app/'
+
+

@@ -14,10 +14,11 @@ export async function fetchCompanyData(business_info_id: string | undefined) {
 
   try {
     const response = await api.get(`/business-info?business_info_uuid=${business_info_id}`)
-
+    console.log('actions: ', response)
     return { status: response.status, data: response.data }
   } catch (err: any) {
-    // console.log("erro: ", err)
+    //console.log("erro data: ", err)
+     if(err.response.status === 401) return false
     if (err.response.data) return err.response.data
 
     // return err.response.data.error
@@ -32,8 +33,8 @@ export const fetchCompanyAddress = async (address_uuid: string) => {
 
     return { status: response.status, data: response.data }
   } catch (err: any) {
+     console.log("erro endereço: ", err)
     if (err.response.data) return err.response.data
-    // console.log("erro: ", err)
     // return err.response.data.error
   }
 
@@ -323,6 +324,7 @@ export const createContract = async (formData: FormData) => {
       business_info_uuid
     })
 
+    console.log("response actions contracts: ", response)
 
     return { status: response.status, data: response.data }
 
@@ -346,8 +348,8 @@ export const fetchContracts = async (business_info_uuid: string) => {
     return { status: response.status, data: response.data }
 
   }catch(err: any){
-    console.log("Error fetching contracts: ", err)
-    if (err.response.data) return err.response.data
+    //console.log("Error fetching contracts: ", err)
+    if (err.response?.data) return err.response.data
   }
 
 }

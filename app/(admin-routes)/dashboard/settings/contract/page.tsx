@@ -4,8 +4,6 @@ import styles from '../../../../components/contractText/contractText.module.css'
 import { fetchCompanyData, fetchContracts } from '@/app/lib/actions';
 import ContractComponent from '@/app/components/contractText/contractText';
 import { ContractList } from '@/app/components/contractText/contractList/contractList';
-import { logOut } from '@/app/contexts/authContext';
-
 
 
 export default async function ContractSettings() {
@@ -14,7 +12,7 @@ export default async function ContractSettings() {
 
     if (session) {
 
-        const businessInfo = await fetchCompanyData(session?.user.business_info_id)
+        const businessInfo = await fetchCompanyData(session.user.business_info_id)
 
         if (session.user.business_status === "pending_contract") {
 
@@ -22,16 +20,16 @@ export default async function ContractSettings() {
                 <main className={styles.container}>
                     <ContractComponent
                         admin_name={session!.user!.name}
-                        fantasy_name={businessInfo.fantasy_name}
-                        document={businessInfo.document}
-                        line1={businessInfo.Address.line1}
-                        line2={businessInfo.Address.line2}
-                        line3={businessInfo.Address.line3}
-                        neighborhood={businessInfo.Address.neighborhood}
-                        city={businessInfo.Address.city}
-                        state={businessInfo.Address.state}
-                        country={businessInfo.Address.country}
-                        postal_code={businessInfo.Address.postal_code}
+                        fantasy_name={businessInfo.data.fantasy_name}
+                        document={businessInfo.data.document}
+                        line1={businessInfo.data.Address.line1}
+                        line2={businessInfo.data.Address.line2}
+                        line3={businessInfo.data.Address.line3}
+                        neighborhood={businessInfo.data.Address.neighborhood}
+                        city={businessInfo.data.Address.city}
+                        state={businessInfo.data.Address.state}
+                        country={businessInfo.data.Address.country}
+                        postal_code={businessInfo.data.Address.postal_code}
                     />
 
                 </main>
@@ -39,6 +37,10 @@ export default async function ContractSettings() {
         } else {
 
             const businessContracts = await fetchContracts(session.user.business_info_id)
+            console.log('server component: ', businessContracts)
+            // if(businessContracts.error === 'Invalid Token'){
+            //     //redirect('/')
+            // }
 
             if (businessContracts.status === 200) {
 
@@ -51,12 +53,13 @@ export default async function ContractSettings() {
         }
 
         return (
-        <>
-            <h2>Oops.. Algo deu erro. Atualize a página.</h2>
-        </>)
+            <>
+              <h1>Algo deu errado. Tente fazer o logout</h1>
+            </>
+        )
 
-        
 
-        
+
+
     }
 }

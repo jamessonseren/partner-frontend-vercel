@@ -20,7 +20,7 @@ type AuthProviderProps = {
 
 }
 
-export async function logOut() {
+export default async function logOut() {
     await signOut({
         redirect: false
     })
