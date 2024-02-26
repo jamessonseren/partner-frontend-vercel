@@ -9,20 +9,24 @@ import { auth, update } from "./auth"
 import { userInfoSchema, userInfoSchemaFirstSignIn } from "../components/userInfo/userInfoValidationSchema"
 
 
-export async function fetchCompanyData(business_info_id: string | undefined) {
+export async function fetchCompanyData() {
   const api = await setupAPIClient()
+  const session = await auth()
 
-  try {
-    const response = await api.get(`/business-info?business_info_uuid=${business_info_id}`)
-    console.log('actions: ', response)
-    return { status: response.status, data: response.data }
-  } catch (err: any) {
-    //console.log("erro data: ", err)
-     if(err.response.status === 401) return false
-    if (err.response.data) return err.response.data
+  if(session){
 
-    // return err.response.data.error
+    try {
+      const response = await api.get(`/business-info?business_info_uuid=${session.user.business_info_id}`)
+      return { status: response.status, data: response.data }
+    } catch (err: any) {
+      //console.log("erro data: ", err)
+      if (err.response.data) return err.response.data
+  
+      // return err.response.data.error
+    }
   }
+  return false
+
 }
 
 export const fetchCompanyAddress = async (address_uuid: string) => {

@@ -12,7 +12,7 @@ export default async function ContractSettings() {
 
     if (session) {
 
-        const businessInfo = await fetchCompanyData(session.user.business_info_id)
+        const businessInfo = await fetchCompanyData()
 
         if (session.user.business_status === "pending_contract") {
 
@@ -37,11 +37,7 @@ export default async function ContractSettings() {
         } else {
 
             const businessContracts = await fetchContracts(session.user.business_info_id)
-            console.log('server component: ', businessContracts)
-            // if(businessContracts.error === 'Invalid Token'){
-            //     //redirect('/')
-            // }
-
+           
             if (businessContracts.status === 200) {
 
                 return (

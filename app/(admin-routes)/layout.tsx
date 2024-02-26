@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 
 interface PrivateLayoutProps {
     children: ReactNode
