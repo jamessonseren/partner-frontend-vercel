@@ -12,7 +12,6 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { HiIdentification } from "react-icons/hi2";
 import { MdAlternateEmail } from "react-icons/md";
 
-
 export default function Home() {
   const router = useRouter()
 
@@ -55,7 +54,7 @@ export default function Home() {
 
 
       router.replace('/dashboard')
-    } catch(err: any) {
+    } catch (err: any) {
 
       console.log("Login error: ", err)
     }
@@ -63,11 +62,11 @@ export default function Home() {
 
 
   }
+
   return (
     <>
 
       <main className={styles.containerCenter}>
-
 
 
         <section className={styles.login}>
@@ -89,6 +88,7 @@ export default function Home() {
                   type="text"
                   name="business_document"
                   placeholder='CNPJ / CPF'
+                  required
                 />
               </div>
               <div className={styles.inputLogin}>
@@ -99,6 +99,7 @@ export default function Home() {
                   type="text"
                   name="credential"
                   placeholder='Email ou nome de usuário'
+                  required
                 />
               </div>
               <div className={styles.inputLogin}>
@@ -109,6 +110,7 @@ export default function Home() {
                   type="password"
                   name="password"
                   placeholder='Senha'
+                  required
                 />
               </div>
 
