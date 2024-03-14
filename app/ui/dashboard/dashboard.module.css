@@ -22,7 +22,6 @@
 .content {
     width: 100%;
     display: flex;
-    align-items: center;
     flex-direction: column;
     flex: 4;
     padding: 2rem;
@@ -105,5 +104,5 @@
     flex: 1;
     display: flex;
     margin-top: 2rem;
-    
+
 }

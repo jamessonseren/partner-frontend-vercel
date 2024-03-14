@@ -10,7 +10,7 @@ export const authConfig = {
     callbacks: {
 
         jwt: async ({ token, user, trigger, session }) => {
-            if(trigger === "signIn"){
+            if (trigger === "signIn") {
 
                 console.log("caiu em signIng")
                 user && (token.user = user)
@@ -34,7 +34,7 @@ export const authConfig = {
             const isLoggedIn = !!auth?.user;
             const session = auth?.user
 
-            
+
             const isOnLoginPage = nextUrl.pathname.startsWith("/");
             const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
             const userSettingsPage = nextUrl.pathname.startsWith("/dashboard/settings/user")
@@ -46,10 +46,10 @@ export const authConfig = {
             if (!isLoggedIn) return false
 
 
-            if (isOnLoginPage && isLoggedIn && !isOnDashboard) {  
-                    return NextResponse.redirect(new URL("/dashboard", nextUrl));              
-                }
-            if ((isLoggedIn && session?.status === 'pending_password') && !userSettingsPage) {             
+            if (isOnLoginPage && isLoggedIn && !isOnDashboard) {
+                return NextResponse.redirect(new URL("/dashboard", nextUrl));
+            }
+            if ((isLoggedIn && session?.status === 'pending_password') && !userSettingsPage) {
 
                 return NextResponse.redirect(new URL('/dashboard/settings/user', nextUrl));
             }

@@ -7,7 +7,7 @@ import Chart from '../../components/transactions/charts/charts'
 
 export default function Dashboard() {
 
-    
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.main}>
@@ -18,9 +18,6 @@ export default function Dashboard() {
                 <Transactions />
                 <Chart />
             </div>
-            {/* <div className={styles.side}>
-                <Rightbar />
-            </div> */}
         </div>
     )
 }
