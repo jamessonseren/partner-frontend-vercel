@@ -24,22 +24,7 @@ export const DefinitionsForm = () => {
         setCharCount(inputValue.length);
     };
 
-    const handleFreightOptionsChange = (updateOptions: additionalDistances[]) => {
-        setAdditionalDistances(updateOptions)
-
-        setDefinitionValues(prevData => ({
-            ...prevData,
-            additionalDistances: updateOptions
-        }))
-    }
-    const handleAddOption = () => {
-        const newOption = { distance: '', value: '' };
-        setAdditionalDistances(prevOptions => [...prevOptions, newOption]);
-        setDefinitionValues(prevData => ({
-            ...prevData,
-            weekDaysOptions: [...prevData.additionalDistances, newOption]
-        }));
-    };
+    
 
     return (
         <div className={styles.container}>

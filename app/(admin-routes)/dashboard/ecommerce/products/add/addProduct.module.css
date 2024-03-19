@@ -1,42 +1,89 @@
 .container {
-    background-color: var(--bgSoft);
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-    width: 100%;
-  }
-  
-  .form {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
-  .form input,
-  .form textarea,
-  .form select {
-    padding: 30px;
-    background-color: var(--bg);
-    color: var(--text);
-    border: 2px solid #2e374a;
-    border-radius: 5px;
-    margin-bottom: 30px;
-  }
-  
-  .form input, .form select {
-    width: 45%;
-  }
-  
-  .form textarea{
-    width: 100%;
-  }
-  
-  .form button{
-    width: 100%;
-    padding: 30px;
-    background-color: teal;
-    color: var(--text);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+  background-color: var(--bgSoft);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  gap: 2rem;
+}
+
+.fields{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.fieldBox{
+  display: flex;
+  flex-direction:column;
+}
+.fields input,
+.fields textarea,
+.fields select {
+  padding: 30px;
+  background-color: var(--bg);
+  color: var(--text);
+  border: 2px solid #2e374a;
+  border-radius: 5px;
+  resize: none;
+}
+
+
+.fields textarea {
+  width: 100%;
+}
+
+.fields button {
+  width: 100%;
+  padding: 30px;
+  background-color: teal;
+  color: var(--text);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.productBox {
+  width: 300px;
+  height: 300px;
+}
+.uploadedImage{
+  width: 250px;
+  height: 250px;
+  position: relative;
+  background-color: var(--white);
+}
+
+.notFoundImage {
+  width: 250px;
+  height: 250px;
+  background-image: url("/noproduct.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.productBox input {
+  width: 100%;
+}
+
+.grid1{
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  width: 100%;
+  gap: 1rem;
+}
+.grid2{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  gap: 1rem;
+
+}
+
+.fileUpload{
+  background-color: green;
+}
