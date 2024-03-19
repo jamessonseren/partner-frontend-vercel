@@ -12,6 +12,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { HiIdentification } from "react-icons/hi2";
 import { MdAlternateEmail } from "react-icons/md";
 
+
 export default function Home() {
   const router = useRouter()
 
