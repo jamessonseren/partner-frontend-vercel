@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Settings() {
     return (
-        <main className={styles.settingsMain}>
+        <main className={styles.container}>
             <h2>Configurações
 
             </h2>

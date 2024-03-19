@@ -2,28 +2,29 @@
 import { useState } from 'react';
 import styles from './definitionsForm.module.css'
 import Select from 'react-select'
-import { correctDelivery, deliveryOptions, distanceDelivery, salesTypeOptions } from '@/app/utils/company-options.utils';
+import { salesTypeOptions, correctDeliveryOptions, distanceDelivery, freightByDistance } from '@/app/utils/formsOptions/ecommerce/ecommerce-options';
+import { additionalDistances, ecommerceDefinitionsDefaultValues, EcommerceDefinitionsTypes } from '@/app/utils/formsOptions/ecommerce/ecommerce-types';
 
 import makeAnimated from 'react-select/animated';
 import { selectStyle } from '../../ui/input';
+import { FaTrashCan } from 'react-icons/fa6';
+import { IoIosAddCircle } from 'react-icons/io';
 
 const animatedComponents = makeAnimated();
 
 
 export const DefinitionsForm = () => {
-    const [title, setTitle] = useState('');
+    const [definitionValues, setDefinitionValues] = useState<EcommerceDefinitionsTypes>(ecommerceDefinitionsDefaultValues)
     const [charCount, setCharCount] = useState(0);
-    const [delivery, setDelivery] = useState<string>('1')
-    const [salesType, setSalesTye] = useState<string>('')
-    const [correctDeliveryOStatus, setCorrectDeliveryStatus] = useState<string>('')
+    const [additionalDistances, setAdditionalDistances] = useState<additionalDistances[]>(definitionValues.additionalDistances)
 
     const handleInputChange = (event: any) => {
         const inputValue = event.target.value;
-        setTitle(inputValue);
+        setDefinitionValues({ ...definitionValues, title: inputValue });
         setCharCount(inputValue.length);
     };
 
-
+    
 
     return (
         <div className={styles.container}>
@@ -34,7 +35,7 @@ export const DefinitionsForm = () => {
 
                         placeholder="Entrega gratuita..."
                         name="title"
-                        value={title}
+                        value={definitionValues.title}
                         onChange={handleInputChange}
                         maxLength={80}
                         required
@@ -46,82 +47,16 @@ export const DefinitionsForm = () => {
                     <div className={styles.inputBox}>
                         <label htmlFor="">Tipo de venda?</label>
                         <Select
-                            components={animatedComponents}
                             placeholder="Selecione uma ou mais opções"
                             options={salesTypeOptions}
                             styles={selectStyle}
-                            //value={salesType.find(option => option.value === correctDeliveryOStatus)}
-                            // onChange={(selectedOption) => {
-                            //     setCorrectDeliveryStatus(selectedOption ? selectedOption.value : '');
-                            // }}
+                            value={salesTypeOptions.find(option => option.value === definitionValues.salesType)}
+                            onChange={(selectedOption) => setDefinitionValues({ ...definitionValues, salesType: selectedOption ? selectedOption.value : "" })}
                         />
                     </div>
-                    {/* <div className={styles.inputBox}>
-                        <label htmlFor="">Entrega?</label>
-                        <Select
-                            options={deliveryOptions}
-                            placeholder="Selecione uma das opções"
-                            className={styles.select}
-                            styles={selectStyle}
-                        />
-                    </div> */}
-                    <div className={styles.inputBox}>
-                        <label htmlFor="">Deseja que a Correct cuide da entrega?</label>
-                        <Select
-                            options={correctDelivery}
-                            placeholder="Selecione uma das opções"
-                            className={styles.select}
-                            styles={selectStyle}
-                            value={correctDelivery.find(option => option.value === correctDeliveryOStatus)}
-                            onChange={(selectedOption) => {
-                                setCorrectDeliveryStatus(selectedOption ? selectedOption.value : '');
-                            }}
-                        />
-                    </div>
+                   
+                   
                 </div>
-
-
-                {correctDeliveryOStatus === 'Sim, quero que cuide de determinadas entregas' && (
-                    <div className={styles.inputBox}>
-                       
-                        <div className={styles.deliveryOptions}>
-                            {/* <select name="cat" id="cat" onChange={(e) => setDelivery(e.target.value)}>
-                            <option value="yes">Sim</option>
-                            <option value="no">Não</option>
-                        </select> */}
-                            <div>
-                                <p>A partir de que distância?</p>
-                                <Select
-                                    options={distanceDelivery}
-                                    placeholder="Selecione uma das opções"
-                                    className={styles.select}
-                                    styles={selectStyle}
-                                    onChange={(selectedOption) => {
-                                        setCorrectDeliveryStatus(selectedOption ? selectedOption.value : '');
-                                    }}
-                                />
-                            </div>
-                            {/* <div>
-                                <p>Cidade</p>
-                                <select name="cat" id="cat">
-                                    <option value="" disabled hidden>Selecione uma opção</option>
-                                    <option value="1">Sim</option>
-                                    <option value="0">Não</option>
-                                </select>
-                            </div>
-                            <div>
-                                <p>País?</p>
-                                <select name="cat" id="cat">
-                                    <option value="1">Sim</option>
-                                    <option value="0">Não</option>
-                                </select>
-                            </div> */}
-
-                        </div>
-
-                    </div>
-                )}
-
 
                 <button className={styles.fullWidth} type="submit">Ajustar definições</button>
             </form>

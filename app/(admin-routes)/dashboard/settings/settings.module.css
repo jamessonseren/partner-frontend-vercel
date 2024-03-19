@@ -1,6 +1,7 @@
-.settingsMain{
+.container{
     display: flex;
     flex-direction: column;
     gap: 2rem;
     padding-top: 1rem;
+    width: 100%;
 }

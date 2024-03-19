@@ -42,24 +42,5 @@ export const deliveryOptions= [
     "Não"
 ].map(option => ({ value: option, label: option }));
 
-export const salesTypeOptions = [
-    "Somente Presencial",
-    "Somente Delivery / Ecommerce",
-    "Ambos"
-].map(option => ({ value: option, label: option }));
 
-export const correctDelivery = [
-    "Sim, quero que cuide de TODAS as entregas",
-    "Não, eu faço TODAS as entregas",
-    "Sim, quero que cuide de determinadas entregas"
-].map(option => ({ value: option, label: option }));
 
-export const distanceDelivery = [
-    "A partir de 1km",
-    "A partir de 5km",
-    "A partir de 10km",
-    "A partir de 15km",
-    "A partir de 20km",
-    "A partir de 50km",
-    "A partir de 100km",
-].map(option => ({ value: option, label: option }));
