@@ -5,6 +5,7 @@ import Link from "next/link";
 import { deleteUser, fetchCompanyUsers } from "@/app/lib/actions";
 import Pagination from "@/app/components/pagination/pagination";
 import { auth } from "@/app/lib/auth";
+import React, { Suspense } from "react";
 export type CompanyUser = {
   uuid: string
   img: string | null
