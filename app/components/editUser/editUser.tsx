@@ -9,6 +9,7 @@ import { useFormStatus } from 'react-dom';
 import { CompanyUser } from '@/app/(admin-routes)/dashboard/users/page';
 
 const EditUserForm = (data: { user: CompanyUser }, business_document: string) => {
+    console.log(data.user)
     const [permissions, setPermissions] = useState<string[]>(data.user?.permissions);
     const { pending } = useFormStatus()
     const handleRoleToggle = (permission: string) => {
@@ -32,8 +33,8 @@ const EditUserForm = (data: { user: CompanyUser }, business_document: string) =>
                     name="password"
                 />
                 <select name="is_active" id="isActive">
-                    <option selected={data.user?.is_active}>Ativo</option>
-                    <option selected={!data.user?.is_active}>Inativo</option>
+                    <option selected={data.user?.status === "active"}>Ativo</option>
+                    <option selected={data.user?.status === "inactive"}>Inativo</option>
                 </select>
                 <div className={styles.toggles}>
                     <div className={styles.switchBox}>
