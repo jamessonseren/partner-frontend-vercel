@@ -20,11 +20,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      
       <body className={inter.className}>
         <AuthWrapper>
           {children}
           <ToastContainer autoClose={2000} />
-
+    
         </AuthWrapper>
 
       </body>
