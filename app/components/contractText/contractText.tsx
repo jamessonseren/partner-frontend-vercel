@@ -58,6 +58,8 @@ const ContractComponent = (props: ContractType) => {
     }, [])
    
 
+    const correct = "'correc't"
+    const comercio = "'Comércio'"
 
     return (
         <div className={styles.container}>
@@ -78,12 +80,12 @@ const ContractComponent = (props: ContractType) => {
                 <br />
                 <p>
                     De um lado, {props.fantasy_name}, CNPJ ({props.document}) situada na {props.line1}, bairro {props.neighborhood}, {props.city}, {props.state}, representada por Clara Alves,
-                    simplesmente denominada <strong>"Comércio"</strong>.
+                    simplesmente denominada <strong>{comercio}</strong>.
 
                     <br />
                     <br />
                     De outro lado, a Correct Administração de Convênios e Benefícios e Meios de Pagamentos Ltda., CNPJ 32.275.282/0001-26, situada na <strong>(rua xxxxxxxxxxxxxxxxx), (número xxx), (bairro xxxxxxxxx),</strong> Campo Grande, MS,
-                    representada por <strong>Elaine Telles Mathiazo,</strong> diretora, simplesmente denominada <strong>“Correct”.</strong>
+                    representada por <strong>Elaine Telles Mathiazo,</strong> diretora, simplesmente denominada <strong>{correct}.</strong>
                     <br />
                     <br />
                     Têm justos e contratados, com base nas informações determinadas a seguir:
@@ -134,7 +136,7 @@ const ContractComponent = (props: ContractType) => {
                     <br />
                     <br />
                     <strong>Cartão Virtual Correct Business:</strong><br />
-                    Criado para os Parceiros que possuem "créditos a receber", originados pelas vendas com Cartões de Benefícios Pós pagos, sem taxas de antecipação de crédito e ainda ganha Cashback. Basta utiliza-lo na Rede Correct, a qual já faz parte.                 <br />
+                    Criado para os Parceiros que possuem créditos a receber, originados pelas vendas com Cartões de Benefícios Pós pagos, sem taxas de antecipação de crédito e ainda ganha Cashback. Basta utiliza-lo na Rede Correct, a qual já faz parte.                 <br />
                     <br />
                     <strong>Token:</strong><br />
                     Permite o Usuário fazer compras mesmo sem internet, onde o Mega APP Correct irá gerar um código e digito que será validado no Módulo de Vendas.                <br />
@@ -226,10 +228,10 @@ const ContractComponent = (props: ContractType) => {
                 <p>
                     1.	Providenciar os requisitos mínimos para implantação do SISCORRECT – Plataforma Comércio, tais como: Microcomputador, tablet ou celular; Acesso à Internet; manter o pessoal sempre treinado para as operações da Plataforma (venda, divulgação, financeiro, gestão). <br />
                     2.	Providenciar a documentação exigida no item “k” e efetuar o cadastramento na Plataforma. O credenciamento somente poderá ser concluído, após a documentação estar em ordem e aprovada pela Correct, bem como, com a Taxa de Credenciamento paga, conforme definido nos itens “d” e “e”.<br />
-                    3.	Manter sempre ativo e atualizado o e-mail de comunicação, determinado no item “h”, assumindo as responsabilidades pelas informações e comunicações enviadas pela Correct.<br />
-                    4.	O Cancelamento de vendas somente poderá ser solicitado pelo Usuário “Master”, definido no item “j”, ou alguém que o mesmo determinar. Caso isso aconteça, o Usuário “Master” deverá informar para a Correct, através do e-mail de comunicação, definido no item “h”, o nome completo da pessoa autorizada e cargo que ocupa no Comércio.<br />
+                    3.	Manter sempre ativo e atualizado o e-mail de comunicação, determinado no item h, assumindo as responsabilidades pelas informações e comunicações enviadas pela Correct.<br />
+                    4.	O Cancelamento de vendas somente poderá ser solicitado pelo Usuário Master, definido no item j, ou alguém que o mesmo determinar. Caso isso aconteça, o Usuário “Master” deverá informar para a Correct, através do e-mail de comunicação, definido no item “h”, o nome completo da pessoa autorizada e cargo que ocupa no Comércio.<br />
                     5.	Todo cancelamento de venda, deverá ser solicitado no máximo até 8 horas da hora da venda, pois a Correct terá o mesmo prazo para efetuar o cancelamento no SYSCORRECT, antes do fechamento da folha de pagamento, para os casos de produtos Pós-Pagos.<br />
-                    6.	O Usuário "Master" deve estar sempre atualizado sobre os procedimentos e operações da Plataforma, bem como, manter atualizado as demais pessoas que ele autorizar a operar a Plataforma.<br />
+                    6.	O Usuário Master deve estar sempre atualizado sobre os procedimentos e operações da Plataforma, bem como, manter atualizado as demais pessoas que ele autorizar a operar a Plataforma.<br />
                     7.	Efetuar as vendas aos Usuários do Mega APP Correct, no preço à vista, sem qualquer acréscimo, com as devidas vantagens acordadas e demonstradas na Vitrine, registrando a venda no Módulo Vendas da Plataforma, após registro da referida venda em seu sistema interno. O registro no Módulo de Vendas, também pode ser efetuado quando o Usuário não tiver com a internet conectada, através do Token, onde o Usuário informará apenas um código e digito.<br />
                     8.	Para cada operação de venda, emitir o comprovante da venda para o Usuário.<br />
                     9.	É de inteira responsabilidade do Comércio, os débitos oriundos das transações efetuadas pelo mesmo, quando este verificar qualquer irregularidade no processo de venda, e mesmo assim, efetuar a venda. Quando detectado qualquer suspeita ou irregularidade, contatar imediatamente a Correct, que dará as instruções necessárias.<br />
