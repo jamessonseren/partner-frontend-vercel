@@ -37,7 +37,7 @@ const menuItems = [
         list: [
             {
                 title: "Relatórios",
-                path: "/dashboard/finances/reports",
+                path: "/dashboard/finances",
                 icon: <MdAnalytics />,
             },
             {
@@ -96,7 +96,7 @@ const SideBar = async () => {
         <aside className={styles.sidebar}>
             <div className={styles.container}>
                 <div className={styles.user}>
-                    <Image className={styles.userImage} src="/noavatar.png" alt='' width="50" height="50" />
+                    {/* <Image className={styles.userImage} src="/noavatar.png" alt='' width="50" height="50" /> */}
                     <div className={styles.userDetails}>
                         <span className={styles.userName}>{session?.user.user_name}</span>
                         <span className={styles.userTitle}>{session?.user.is_admin ? "Admin" : ""}</span>
